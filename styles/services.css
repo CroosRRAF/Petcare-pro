@@ -1,4 +1,4 @@
-/* Products Page Styles */
+/* Services Page Styles */
 
 /* Color Variables */
 :root {
@@ -24,16 +24,15 @@ body {
   padding: 0;
 }
 
-.products-container {
+.services-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
   background-color: var(--background);
-  color: var(--primary-text);
   min-height: 80vh;
 }
 
-.products-header {
+.services-header {
   text-align: center;
   margin-bottom: 40px;
   padding: 30px;
@@ -43,23 +42,28 @@ body {
   box-shadow: var(--card-shadow);
 }
 
-.products-header h1 {
+.services-header h1,
+.services-header h2 {
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
+  color: white;
 }
 
-.products-grid {
+.service-grid,
+.services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   margin-top: 30px;
 }
 
-.product-card {
+.service-card,
+.service-item,
+.service {
   background-color: var(--surface);
   border-radius: 15px;
   overflow: hidden;
@@ -68,38 +72,40 @@ body {
   border: 1px solid var(--border-color);
 }
 
-.product-card:hover {
+.service-card:hover,
+.service-item:hover,
+.service:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.product-image {
+.service-card img,
+.service-item img,
+.service img {
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
 }
 
-.product-info {
+.service-content,
+.service-info {
   padding: 20px;
 }
 
-.product-name {
+.service-item h3,
+.service h3,
+.service-name {
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--primary-text);
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
-.product-price {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.product-description {
+.service-item p,
+.service p,
+.service-description {
   color: var(--secondary-text);
-  margin-bottom: 15px;
+  margin: 15px 0;
   line-height: 1.6;
 }
 
@@ -114,47 +120,65 @@ body {
   margin-bottom: 10px;
 }
 
-.product-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-primary {
+.btn,
+.book-now {
+  display: inline-block;
+  padding: 12px 25px;
   background: linear-gradient(135deg, var(--accent), var(--success));
   color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
 }
 
-.btn-primary:hover {
+.btn:hover,
+.book-now:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(60, 145, 230, 0.3);
 }
 
+.btn i,
+.book-now i {
+  margin-right: 8px;
+}
+
+/* Empty State */
+.service-grid p,
+.services-grid p {
+  text-align: center;
+  color: var(--secondary-text);
+  font-size: 1.2rem;
+  padding: 40px;
+  grid-column: 1 / -1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .products-container {
+  .services-container {
     padding: 20px 15px;
   }
 
-  .products-header h1 {
+  .services-header h1,
+  .services-header h2 {
     font-size: 2rem;
     flex-direction: column;
     gap: 10px;
   }
 
-  .products-grid {
+  .service-grid,
+  .services-grid {
     grid-template-columns: 1fr;
+  }
+
+  .service-card img,
+  .service-item img,
+  .service img {
+    height: 200px;
   }
 }

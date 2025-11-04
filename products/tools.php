@@ -16,27 +16,43 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Care Tools</title>
+    <title>Pet Care Tools | Petcare Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
     <link rel="stylesheet" href="../styles/products.css">
 </head>
 <body>
     <?php include "../includes/header.php"; ?>
-    <h1>Pet Care Tools</h1>
 
-    <div class="product-grid">
-        <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="product-item">
-                    <img src="../assets/images/<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
-                    <h3><?= htmlspecialchars($row['name']) ?></h3>
-                    <p>Price: $<?= number_format($row['price'], 2) ?></p>
-                    <p><?= htmlspecialchars($row['description']) ?></p>
-                    <a href="../user/add_to_cart.php?product_id=<?= urlencode($row['id']) ?>" class="buy-now-btn">Buy Now</a>
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>No tools available.</p>
-        <?php endif; ?>
+    <div class="products-container">
+        <div class="products-header">
+            <h1><i class="fas fa-tools"></i> Pet Care Tools</h1>
+        </div>
+
+        <div class="products-grid">
+            <?php if ($result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <div class="product-card">
+                        <img src="../assets/images/<?= htmlspecialchars($row['image_url']) ?>"
+                             alt="<?= htmlspecialchars($row['name']) ?>"
+                             class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name"><?= htmlspecialchars($row['name']) ?></h3>
+                            <div class="product-price">$<?= number_format($row['price'], 2) ?></div>
+                            <p class="product-description"><?= htmlspecialchars($row['description']) ?></p>
+                            <div class="product-actions">
+                                <a href="../user/add_to_cart.php?product_id=<?= urlencode($row['id']) ?>" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No tools available.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
     <?php include "../includes/footer.php"; ?>
