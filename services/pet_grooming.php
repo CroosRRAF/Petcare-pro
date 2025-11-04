@@ -38,9 +38,15 @@
                             <span class="category">Grooming</span>
                             <h3><?= htmlspecialchars($service['name']) ?></h3>
                             <p><?= htmlspecialchars($service['description']) ?></p>
-                            <a href="../user/add_to_cart.php?service_id=<?= urlencode($service['id']) ?>" class="book-now">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </a>
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <button onclick="addServiceToCart(<?= $service['id'] ?>)" class="book-now">
+                                    <i class="fas fa-calendar-check"></i> Book Now
+                                </button>
+                            <?php else: ?>
+                                <a href="../auth/login.php" class="book-now">
+                                    <i class="fas fa-sign-in-alt"></i> Login to Book
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endwhile; ?>
@@ -52,5 +58,6 @@
 
 
     <?php include '../includes/footer.php'; ?>
+    <script src="../scripts/cart.js"></script>
 </body>
 </html>

@@ -10,17 +10,28 @@ if (isAjaxRequest()) {
     header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Validate CSRF token
-        if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        // Validate CSRF token - generate one if not present for AJAX requests
+        $csrf_token = $_POST['csrf_token'] ?? '';
+
+        if (empty($csrf_token)) {
+            // Generate a new token if none provided (for AJAX convenience)
+            generateCSRFToken();
+        } elseif (!validateCSRFToken($csrf_token)) {
             jsonResponse(['success' => false, 'message' => 'Invalid security token'], 400);
         }
 
-        $product_id = intval($_POST['product_id'] ?? 0);
+        $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
+        $service_id = isset($_POST['service_id']) ? intval($_POST['service_id']) : null;
         $quantity = intval($_POST['quantity'] ?? 1);
         $user_id = $_SESSION['user_id'];
 
-        if ($product_id <= 0) {
-            jsonResponse(['success' => false, 'message' => 'Invalid product'], 400);
+        // Validate that either product_id or service_id is provided
+        if (!$product_id && !$service_id) {
+            jsonResponse(['success' => false, 'message' => 'No product or service selected'], 400);
+        }
+
+        if ($product_id && $service_id) {
+            jsonResponse(['success' => false, 'message' => 'Cannot add both product and service at once'], 400);
         }
 
         if ($quantity <= 0) {
@@ -32,20 +43,33 @@ if (isAjaxRequest()) {
         }
 
         $conn = getDBConnection();
+        $item_type = $product_id ? 'product' : 'service';
+        $item_id = $product_id ? $product_id : $service_id;
 
-        // Check if product exists
-        $stmt = $conn->prepare("SELECT id, name, price FROM products WHERE id = ?");
-        $stmt->bind_param("i", $product_id);
+        // Check if item exists
+        if ($item_type === 'product') {
+            $stmt = $conn->prepare("SELECT id, name, price FROM products WHERE id = ?");
+        } else {
+            $stmt = $conn->prepare("SELECT id, name, 0 as price FROM services WHERE id = ?");
+        }
+
+        $stmt->bind_param("i", $item_id);
         $stmt->execute();
-        $product = $stmt->get_result()->fetch_assoc();
+        $item = $stmt->get_result()->fetch_assoc();
 
-        if (!$product) {
-            jsonResponse(['success' => false, 'message' => 'Product not found'], 404);
+        if (!$item) {
+            jsonResponse(['success' => false, 'message' => ucfirst($item_type) . ' not found'], 404);
         }
 
         // Check if item already in cart
-        $stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND product_id = ?");
-        $stmt->bind_param("ii", $user_id, $product_id);
+        if ($item_type === 'product') {
+            $stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND product_id = ? AND item_type = 'product'");
+            $stmt->bind_param("ii", $user_id, $item_id);
+        } else {
+            $stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND service_id = ? AND item_type = 'service'");
+            $stmt->bind_param("ii", $user_id, $item_id);
+        }
+
         $stmt->execute();
         $existing = $stmt->get_result()->fetch_assoc();
 
@@ -56,12 +80,22 @@ if (isAjaxRequest()) {
                 jsonResponse(['success' => false, 'message' => 'Maximum quantity is 10 per item'], 400);
             }
 
-            $stmt = $conn->prepare("UPDATE cart SET quantity = ?, added_at = NOW() WHERE user_id = ? AND product_id = ?");
-            $stmt->bind_param("iii", $new_quantity, $user_id, $product_id);
+            if ($item_type === 'product') {
+                $stmt = $conn->prepare("UPDATE cart SET quantity = ?, added_at = NOW() WHERE user_id = ? AND product_id = ? AND item_type = 'product'");
+                $stmt->bind_param("iii", $new_quantity, $user_id, $item_id);
+            } else {
+                $stmt = $conn->prepare("UPDATE cart SET quantity = ?, added_at = NOW() WHERE user_id = ? AND service_id = ? AND item_type = 'service'");
+                $stmt->bind_param("iii", $new_quantity, $user_id, $item_id);
+            }
         } else {
             // Add new cart item
-            $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity, added_at) VALUES (?, ?, ?, NOW())");
-            $stmt->bind_param("iii", $user_id, $product_id, $quantity);
+            if ($item_type === 'product') {
+                $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, service_id, item_type, quantity, added_at) VALUES (?, ?, NULL, 'product', ?, NOW())");
+                $stmt->bind_param("iii", $user_id, $item_id, $quantity);
+            } else {
+                $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, service_id, item_type, quantity, added_at) VALUES (?, NULL, ?, 'service', ?, NOW())");
+                $stmt->bind_param("iii", $user_id, $item_id, $quantity);
+            }
         }
 
         if ($stmt->execute()) {
@@ -70,7 +104,7 @@ if (isAjaxRequest()) {
 
             jsonResponse([
                 'success' => true,
-                'message' => 'Product added to cart!',
+                'message' => ucfirst($item_type) . ' added to cart!',
                 'cart_count' => $_SESSION['cart_count']
             ]);
         } else {

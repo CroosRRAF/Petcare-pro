@@ -33,11 +33,16 @@ CREATE TABLE services (
 CREATE TABLE IF NOT EXISTS cart (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
-  product_id INT NOT NULL,
+  product_id INT NULL,
+  service_id INT NULL,
+  item_type ENUM('product', 'service') NOT NULL,
   quantity INT DEFAULT 1,
   added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+  FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE,
+  CHECK ((item_type = 'product' AND product_id IS NOT NULL AND service_id IS NULL)
+     OR (item_type = 'service' AND service_id IS NOT NULL AND product_id IS NULL))
 );
 
 CREATE TABLE IF NOT EXISTS orders (

@@ -296,6 +296,7 @@ $categories = $conn->query("SELECT DISTINCT category FROM products ORDER BY cate
         </div>
     </div>
 
+    <script src="../scripts/cart.js"></script>
     <script>
         // Sort functionality
         function updateSort(sortValue) {
@@ -303,38 +304,6 @@ $categories = $conn->query("SELECT DISTINCT category FROM products ORDER BY cate
             url.searchParams.set('sort', sortValue);
             url.searchParams.set('page', '1');
             window.location = url.toString();
-        }
-
-        // Add to cart functionality
-        async function addToCart(productId) {
-            try {
-                const response = await fetch('../cart/add_to_cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `product_id=${productId}&quantity=1&csrf_token=<?= generateCSRFToken() ?>`
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    // Update cart count in header
-                    const cartCount = document.querySelector('.cart-count');
-                    if (cartCount) {
-                        cartCount.textContent = result.cart_count;
-                        cartCount.style.display = result.cart_count > 0 ? 'inline' : 'none';
-                    }
-
-                    // Show success message
-                    showNotification('Product added to cart!', 'success');
-                } else {
-                    showNotification(result.message || 'Error adding to cart', 'error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Error adding to cart', 'error');
-            }
         }
 
         // Wishlist functionality
@@ -383,27 +352,6 @@ $categories = $conn->query("SELECT DISTINCT category FROM products ORDER BY cate
 
         function closeQuickView() {
             document.getElementById('quickViewModal').style.display = 'none';
-        }
-
-        // Notification system
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                ${message}
-            `;
-
-            document.body.appendChild(notification);
-
-            // Show notification
-            setTimeout(() => notification.classList.add('show'), 100);
-
-            // Hide notification after 3 seconds
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
         }
 
         // Close modal when clicking outside

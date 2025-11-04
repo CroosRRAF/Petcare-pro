@@ -39,9 +39,15 @@ $stmt->close();
                         <p class="product-description"><?php echo htmlspecialchars($product['description']); ?></p>
                         <div class="product-price">$<?php echo number_format($product['price'], 2); ?></div>
                         <div class="product-actions">
-                            <a href="../user/add_to_cart.php?product_id=<?php echo $product['id']; ?>" class="btn btn-primary">
-                                <i class="fas fa-cart-plus"></i> Add to Cart
-                            </a>
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <button onclick="addToCart(<?php echo $product['id']; ?>)" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            <?php else: ?>
+                                <a href="../auth/login.php" class="btn btn-primary">
+                                    <i class="fas fa-sign-in-alt"></i> Login to Buy
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -50,5 +56,6 @@ $stmt->close();
     </div>
 
     <?php include '../includes/footer.php'; ?>
+    <script src="../scripts/cart.js"></script>
 </body>
 </html>

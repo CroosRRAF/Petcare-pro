@@ -42,9 +42,15 @@ $result = $conn->query($query);
                             <div class="product-price">$<?= number_format($row['price'], 2) ?></div>
                             <p class="product-description"><?= htmlspecialchars($row['description']) ?></p>
                             <div class="product-actions">
-                                <a href="../user/add_to_cart.php?product_id=<?= urlencode($row['id']) ?>" class="btn btn-primary">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </a>
+                                <?php if (isset($_SESSION['user_id'])): ?>
+                                    <button onclick="addToCart(<?= $row['id'] ?>)" class="btn btn-primary">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                <?php else: ?>
+                                    <a href="../auth/login.php" class="btn btn-primary">
+                                        <i class="fas fa-sign-in-alt"></i> Login to Buy
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -56,5 +62,6 @@ $result = $conn->query($query);
     </div>
 
     <?php include "../includes/footer.php"; ?>
+    <script src="../scripts/cart.js"></script>
 </body>
 </html>

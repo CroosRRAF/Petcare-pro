@@ -36,9 +36,15 @@ $stmt->close();
                         <span class="category"><?php echo htmlspecialchars($service['category']); ?></span>
                         <h3><?php echo htmlspecialchars($service['name']); ?></h3>
                         <p><?php echo htmlspecialchars($service['description']); ?></p>
-                        <a href="../user/add_to_cart.php?service_id=<?php echo $service['id']; ?>" class="btn">
-                            <i class="fas fa-calendar-check"></i> Book Service
-                        </a>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button onclick="addServiceToCart(<?php echo $service['id']; ?>)" class="btn">
+                                <i class="fas fa-calendar-check"></i> Book Service
+                            </button>
+                        <?php else: ?>
+                            <a href="../auth/login.php" class="btn">
+                                <i class="fas fa-sign-in-alt"></i> Login to Book
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -46,5 +52,6 @@ $stmt->close();
     </div>
 
     <?php include '../includes/footer.php'; ?>
+    <script src="../scripts/cart.js"></script>
 </body>
 </html>
