@@ -35,7 +35,8 @@ $result = $conn->query("SELECT * FROM products");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/footer.css">
-    <link rel="stylesheet" href="../styles/admin_dashboard.css">
+    <link rel="stylesheet" href="../styles/admin/common.css">
+    <link rel="stylesheet" href="../styles/admin/tables.css">
 </head>
 <body>
     <?php include '../includes/header.php'; ?>

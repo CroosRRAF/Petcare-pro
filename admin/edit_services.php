@@ -54,36 +54,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Service</title>
-    <link rel="stylesheet" href="../styles/manage_services.css">
+    <title>Edit Service - Petcare Pro Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/admin/common.css">
+    <link rel="stylesheet" href="../styles/admin/forms.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Edit Service</h1>
+    <?php include '../includes/header.php'; ?>
 
-        <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php elseif ($success): ?>
-            <div class="success"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
+    <div class="admin-container">
+        <div class="container">
+            <h1><i class="fas fa-edit"></i> Edit Service</h1>
 
-        <form action="edit_services.php?id=<?= $service['id'] ?>" method="POST">
-            <label for="name">Service Name:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($service['name']) ?>" required>
+            <?php if ($error): ?>
+                <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+            <?php elseif ($success): ?>
+                <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required><?= htmlspecialchars($service['description']) ?></textarea>
+            <form action="edit_services.php?id=<?= $service['id'] ?>" method="POST" class="admin-form">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-concierge-bell"></i> Service Name:</label>
+                    <input type="text" id="name" name="name" value="<?= htmlspecialchars($service['name']) ?>" required>
+                </div>
 
-            <label for="category">Category:</label>
-            <input type="text" id="category" name="category" value="<?= htmlspecialchars($service['category']) ?>" required>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description:</label>
+                    <textarea id="description" name="description" required><?= htmlspecialchars($service['description']) ?></textarea>
+                </div>
 
-            <label for="image_url">Image URL:</label>
-            <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($service['image_url']) ?>" required>
+                <div class="form-group">
+                    <label for="category"><i class="fas fa-list"></i> Category:</label>
+                    <input type="text" id="category" name="category" value="<?= htmlspecialchars($service['category']) ?>" required>
+                </div>
 
-            <button type="submit">Update Service</button>
-        </form>
+                <div class="form-group">
+                    <label for="image_url"><i class="fas fa-image"></i> Image URL:</label>
+                    <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($service['image_url']) ?>" required>
+                </div>
 
-        <p><a href="manage_services.php">&larr; Back to Manage Services</a></p>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Service
+                    </button>
+                    <a href="manage_services.php" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+
+            <div class="form-nav">
+                <a href="manage_services.php"><i class="fas fa-arrow-left"></i> Back to Manage Services</a>
+            </div>
+        </div>
     </div>
+
+    <?php include '../includes/footer.php'; ?>
 </body>
 </html>

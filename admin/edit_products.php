@@ -58,42 +58,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product - Admin</title>
-    <link rel="stylesheet" href="../styles/admin_manage_products.css">
+    <title>Edit Product - Petcare Pro Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/admin/common.css">
+    <link rel="stylesheet" href="../styles/admin/forms.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Edit Product</h1>
+    <?php include '../includes/header.php'; ?>
 
-        <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php elseif ($success): ?>
-            <div class="success"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
+    <div class="admin-container">
+        <div class="container">
+            <h1><i class="fas fa-edit"></i> Edit Product</h1>
 
-        <form action="edit_products.php?id=<?= $product_id ?>" method="POST">
-            <label>Name:</label>
-            <input type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required>
+            <?php if ($error): ?>
+                <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+            <?php elseif ($success): ?>
+                <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
 
-            <label>Price:</label>
-            <input type="number" name="price" step="0.01" value="<?= htmlspecialchars($product['price']) ?>" required>
+            <form action="edit_products.php?id=<?= $product_id ?>" method="POST" class="admin-form">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-tag"></i> Product Name:</label>
+                    <input type="text" id="name" name="name" value="<?= htmlspecialchars($product['name']) ?>" required>
+                </div>
 
-            <label>Description:</label>
-            <textarea name="description"><?= htmlspecialchars($product['description']) ?></textarea>
+                <div class="form-group">
+                    <label for="price"><i class="fas fa-dollar-sign"></i> Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" value="<?= htmlspecialchars($product['price']) ?>" required>
+                </div>
 
-            <label>Category:</label>
-            <select name="category" required>
-                <option value="Food" <?= $product['category'] === 'Food' ? 'selected' : '' ?>>Food</option>
-                <option value="Tools" <?= $product['category'] === 'Tools' ? 'selected' : '' ?>>Tools</option>
-            </select>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description:</label>
+                    <textarea id="description" name="description"><?= htmlspecialchars($product['description']) ?></textarea>
+                </div>
 
-            <label>Image URL:</label>
-            <input type="text" name="image_url" value="<?= htmlspecialchars($product['image_url']) ?>" required>
+                <div class="form-group">
+                    <label for="category"><i class="fas fa-list"></i> Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="Food" <?= $product['category'] === 'Food' ? 'selected' : '' ?>>Food</option>
+                        <option value="Tools" <?= $product['category'] === 'Tools' ? 'selected' : '' ?>>Tools</option>
+                    </select>
+                </div>
 
-            <button type="submit">Update Product</button>
-        </form>
+                <div class="form-group">
+                    <label for="image_url"><i class="fas fa-image"></i> Image URL:</label>
+                    <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($product['image_url']) ?>" required>
+                </div>
 
-        <p><a href="manage_products.php">&larr; Back to Manage Products</a></p>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Product
+                    </button>
+                    <a href="manage_products.php" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+
+            <div class="form-nav">
+                <a href="manage_products.php"><i class="fas fa-arrow-left"></i> Back to Manage Products</a>
+            </div>
+        </div>
     </div>
+
+    <?php include '../includes/footer.php'; ?>
 </body>
 </html>

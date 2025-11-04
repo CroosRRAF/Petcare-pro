@@ -32,22 +32,29 @@ $result = $conn->query("SELECT * FROM services");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Services - Admin</title>
-    <link rel="stylesheet" href="../styles/admin_manage_services.css">
+    <title>Manage Services - Petcare Pro Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/admin/common.css">
+    <link rel="stylesheet" href="../styles/admin/tables.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Manage Services</h1>
+    <?php include '../includes/header.php'; ?>
 
-        <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php elseif ($success): ?>
-            <div class="success"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
+    <div class="admin-container">
+        <div class="container">
+            <h1><i class="fas fa-concierge-bell"></i> Manage Services</h1>
 
-        <a href="add_services.php" class="btn-add">Add New Service</a>
+            <?php if ($error): ?>
+                <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+            <?php elseif ($success): ?>
+                <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
 
-        <table>
+            <a href="add_services.php" class="btn-add"><i class="fas fa-plus-circle"></i> Add New Service</a>
+
+            <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -61,21 +68,31 @@ $result = $conn->query("SELECT * FROM services");
             <tbody>
                 <?php while ($service = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= $service['id'] ?></td>
-                        <td><?= htmlspecialchars($service['name']) ?></td>
+                        <td class="table-id"><?= $service['id'] ?></td>
+                        <td class="table-name"><?= htmlspecialchars($service['name']) ?></td>
                         <td><?= htmlspecialchars($service['description']) ?></td>
-                        <td><?= htmlspecialchars($service['category']) ?></td>
+                        <td><span class="table-category"><?= htmlspecialchars($service['category']) ?></span></td>
                         <td><?= htmlspecialchars($service['image_url']) ?></td>
-                        <td>
-                            <a href="edit_services.php?id=<?= $service['id'] ?>" class="btn-edit">Edit</a>
-                            <a href="manage_services.php?delete=<?= $service['id'] ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
+                        <td class="table-actions-cell">
+                            <a href="edit_services.php?id=<?= $service['id'] ?>" class="table-action-btn edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="manage_services.php?delete=<?= $service['id'] ?>" class="table-action-btn delete"
+                               onclick="return confirm('Are you sure you want to delete this service?');">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
 
-        <p><a href="dashboard.php">&larr; Back to Dashboard</a></p>
+        <div class="form-nav">
+            <a href="dashboard.php"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
     </div>
+</div>
+
+<?php include '../includes/footer.php'; ?>
 </body>
 </html>
