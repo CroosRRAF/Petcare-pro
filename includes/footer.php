@@ -3,7 +3,7 @@
             <div class="footer-column">
                 <div class="footer-brand">
                     <i class="fas fa-paw"></i>
-                    <span>Zyora PetCare</span>
+                    <span>Petcare Pro</span>
                 </div>
                 <p>
                     Your trusted partner in pet care and wellness. We provide premium products,
@@ -41,7 +41,7 @@
                 <h3>Contact Us</h3>
                 <p><i class="fas fa-map-marker-alt"></i> 123 Pet Street, Jaffna, Sri Lanka</p>
                 <p><i class="fas fa-phone-alt"></i> +94 76 123 4567</p>
-                <p><i class="fas fa-envelope"></i> info@zyorapetcare.com</p>
+                <p><i class="fas fa-envelope"></i> info@petcarepro.com</p>
                 <p><i class="fas fa-clock"></i> Emergency: 24/7 Available</p>
 
                 <div class="service-hours">
@@ -62,7 +62,7 @@
         </div>
 
         <div class="footer-bottom">
-            &copy; <?php echo date('Y'); ?> Zyora PetCare. All Rights Reserved. |
+            &copy; <?php echo date('Y'); ?> Petcare Pro. All Rights Reserved. |
             <a href="/Petcare-pro/pages/privacy.php">Privacy Policy</a> |
             <a href="/Petcare-pro/pages/terms.php">Terms of Service</a> |
             <a href="/Petcare-pro/pages/faq.php">FAQ</a>

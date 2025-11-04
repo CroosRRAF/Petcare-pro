@@ -71,9 +71,9 @@ $notif_stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard | Zyora PetCare</title>
+    <title>User Dashboard | Petcare Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="../styles/auth.css">
+    <link rel="stylesheet" href="../styles/header.css">
     <style>
         body { font-family: 'Arial', sans-serif; background-color: #f8f9fa; color: #333; }
         .dashboard-container { max-width: 1400px; margin: 0 auto; padding: 20px; }

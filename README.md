@@ -1,9 +1,9 @@
-# Zyora PetCare - Landing Page Complete! 🐾
+# Petcare Pro - Landing Page Complete! 🐾
 
 ## Project Structure
 
 ```
-Zyora-PetCare/
+Petcare-pro/
 ├── admin/              # Admin panel pages
 ├── api/                # REST API endpoints
 ├── assets/
@@ -121,7 +121,7 @@ File: `config/db_connect.php`
 2. **Access the site**:
 
    ```
-   http://localhost/Petcare-GrocesaryShop/Zyora-PetCare/
+   http://localhost/Petcare-pro/
    ```
 
 3. **Add Images** (Optional):

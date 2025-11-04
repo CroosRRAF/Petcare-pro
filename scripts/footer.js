@@ -21,7 +21,7 @@ function subscribeNewsletter() {
 
   // You can add AJAX call here to send data to backend
   // Example:
-  // fetch('/Petcare-GrocesaryShop/Zyora-PetCare/api/subscribe.php', {
+  // fetch('/Petcare-pro/api/subscribe.php', {
   //     method: 'POST',
   //     headers: {
   //         'Content-Type': 'application/json',

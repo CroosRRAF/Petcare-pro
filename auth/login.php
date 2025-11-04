@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Zyora PetCare</title>
+    <title>Login | Petcare Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="../styles/auth.css">
 </head>
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="auth-header">
                 <div class="auth-logo">
                     <i class="fas fa-paw"></i>
-                    <span>Zyora PetCare</span>
+                    <span>Petcare Pro</span>
                 </div>
                 <h2>Welcome Back!</h2>
                 <p>Login to access your account</p>

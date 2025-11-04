@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="top-nav" id="topNav">
             <a href="/Petcare-pro/index.php" class="brand">
                 <i class="fas fa-paw"></i>
-                Zyora PetCare
+                Petcare Pro
             </a>
 
             <ul>

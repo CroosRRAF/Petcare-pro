@@ -20,12 +20,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(
-      135deg,
-      rgba(60, 145, 230, 0.9),
-      rgba(42, 110, 187, 0.9)
-    ),
-    url("../images/bg.jpg") center/cover;
+  background: url("../images/bg.jpg") center/cover;
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;

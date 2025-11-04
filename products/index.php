@@ -81,7 +81,7 @@ $categories = $conn->query("SELECT DISTINCT category FROM products ORDER BY cate
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Zyora PetCare</title>
+    <title>Products - Petcare Pro</title>
     <meta name="description" content="Browse our wide selection of premium pet products including food, tools, and accessories for your beloved pets.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="../styles/header.css">

@@ -1,7 +1,7 @@
 <?php
 /**
- * Common Functions for Zyora PetCare
- * This file contains reusable functions used throughout the application
+ * Common Functions for Petcare Pro
+ * This file contains reusable functions for the application
  */
 
 /**
@@ -360,7 +360,7 @@ function uploadImage($file, $upload_dir = 'assets/images/uploads/') {
 /**
  * Send email (basic implementation)
  */
-function sendEmail($to, $subject, $message, $from = 'noreply@zyora-petcare.com') {
+function sendEmail($to, $subject, $message, $from = 'noreply@petcarepro.com') {
     $headers = [
         'From' => $from,
         'Reply-To' => $from,
