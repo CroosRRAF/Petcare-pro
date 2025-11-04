@@ -12,59 +12,54 @@ $error_message = '';
 $success_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signup"])) {
-    // Validate CSRF token
-    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
-        $error_message = "Invalid security token. Please try again.";
-    } else {
-        $username = sanitize($_POST["username"] ?? '');
-        $email = sanitize($_POST["email"] ?? '');
-        $password = $_POST["password"] ?? '';
-        $confirm_password = $_POST["confirm_password"] ?? '';
+    $username = sanitize($_POST["username"] ?? '');
+    $email = sanitize($_POST["email"] ?? '');
+    $password = $_POST["password"] ?? '';
+    $confirm_password = $_POST["confirm_password"] ?? '';
 
-        // Validation
-        if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
-            $error_message = "All fields are required.";
-        }
-        elseif (!validateEmail($email)) {
-            $error_message = "Invalid email format.";
-        }
-        elseif (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
-            $error_message = "Username must be 3-20 characters and can only contain letters, numbers, and underscores.";
-        }
-        elseif (!validatePassword($password)) {
-            $error_message = "Password must be at least 8 characters with uppercase, lowercase, and numbers.";
-        }
-        elseif ($password !== $confirm_password) {
-            $error_message = "Passwords do not match.";
-        }
-        else {
-            $conn = getDBConnection();
+    // Validation
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error_message = "All fields are required.";
+    }
+    elseif (!validateEmail($email)) {
+        $error_message = "Invalid email format.";
+    }
+    elseif (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
+        $error_message = "Username must be 3-20 characters and can only contain letters, numbers, and underscores.";
+    }
+    elseif (!validatePassword($password)) {
+        $error_message = "Password must be at least 8 characters with uppercase, lowercase, and numbers.";
+    }
+    elseif ($password !== $confirm_password) {
+        $error_message = "Passwords do not match.";
+    }
+    else {
+        $conn = getDBConnection();
 
-            // Check if username or email already exists
-            $stmt = $conn->prepare("SELECT username, email FROM users WHERE username = ? OR email = ?");
-            $stmt->bind_param("ss", $username, $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
+        // Check if username or email already exists
+        $stmt = $conn->prepare("SELECT username, email FROM users WHERE username = ? OR email = ?");
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $error_message = "Username or Email is already registered.";
+        if ($result->num_rows > 0) {
+            $error_message = "Username or Email is already registered.";
+        } else {
+            $hashed_password = hashPassword($password);
+
+            // Insert new user
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, 'user', NOW())");
+            $stmt->bind_param("sss", $username, $email, $hashed_password);
+
+            if ($stmt->execute()) {
+                setFlash('success', 'Registration successful! You can now login with your credentials.');
+                redirect('login.php');
             } else {
-                $hashed_password = hashPassword($password);
-
-                // Insert new user
-                $stmt = $conn->prepare("INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, 'user', NOW())");
-                $stmt->bind_param("sss", $username, $email, $hashed_password);
-
-                if ($stmt->execute()) {
-                    setFlash('success', 'Registration successful! You can now login with your credentials.');
-                    redirect('login.php');
-                } else {
-                    $error_message = "Error registering user. Please try again.";
-                    logError("Registration failed for user: $username, Email: $email");
-                }
+                $error_message = "Error registering user. Please try again.";
+                logError("Registration failed for user: $username, Email: $email");
             }
-            $stmt->close();
         }
+        $stmt->close();
     }
 }
 ?>
@@ -98,7 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signup"])) {
             <?php endif; ?>
 
             <form method="POST" action="">
-                <?= getCSRFInput() ?>
                 <div class="form-group">
                     <label for="username"><i class="fas fa-user"></i> Username</label>
                     <input type="text" id="username" name="username"

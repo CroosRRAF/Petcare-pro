@@ -9,11 +9,6 @@ if (!isAjaxRequest() || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(['success' => false, 'message' => 'Invalid request'], 400);
 }
 
-// Validate CSRF token
-if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
-    jsonResponse(['success' => false, 'message' => 'Invalid security token'], 400);
-}
-
 $product_id = intval($_POST['product_id'] ?? 0);
 $new_quantity = intval($_POST['quantity'] ?? 0);
 $user_id = $_SESSION['user_id'];

@@ -314,7 +314,7 @@ $categories = $conn->query("SELECT DISTINCT category FROM products ORDER BY cate
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `product_id=${productId}&csrf_token=<?= generateCSRFToken() ?>`
+                    body: `product_id=${productId}`
                 });
 
                 const result = await response.json();

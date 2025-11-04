@@ -9,11 +9,6 @@ if (!isAjaxRequest() || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(['success' => false, 'message' => 'Invalid request'], 400);
 }
 
-// Validate CSRF token
-if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
-    jsonResponse(['success' => false, 'message' => 'Invalid security token'], 400);
-}
-
 $user_id = $_SESSION['user_id'];
 $conn = getDBConnection();
 

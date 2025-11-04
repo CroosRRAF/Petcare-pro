@@ -274,7 +274,7 @@ $_SESSION['cart_count'] = $total_items;
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `product_id=${productId}&quantity=${newQuantity}&csrf_token=<?= generateCSRFToken() ?>`
+                    body: `product_id=${productId}&quantity=${newQuantity}`
                 });
 
                 const result = await response.json();
@@ -302,7 +302,7 @@ $_SESSION['cart_count'] = $total_items;
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `product_id=${productId}&csrf_token=<?= generateCSRFToken() ?>`
+                    body: `product_id=${productId}`
                 });
 
                 const result = await response.json();
@@ -330,7 +330,7 @@ $_SESSION['cart_count'] = $total_items;
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `csrf_token=<?= generateCSRFToken() ?>`
+                    body: ''
                 });
 
                 const result = await response.json();
@@ -354,7 +354,7 @@ $_SESSION['cart_count'] = $total_items;
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `product_id=${productId}&quantity=1&csrf_token=<?= generateCSRFToken() ?>`
+                    body: `product_id=${productId}&quantity=1`
                 });
 
                 const result = await response.json();

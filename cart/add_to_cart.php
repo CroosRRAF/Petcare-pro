@@ -10,16 +10,6 @@ if (isAjaxRequest()) {
     header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Validate CSRF token - generate one if not present for AJAX requests
-        $csrf_token = $_POST['csrf_token'] ?? '';
-
-        if (empty($csrf_token)) {
-            // Generate a new token if none provided (for AJAX convenience)
-            generateCSRFToken();
-        } elseif (!validateCSRFToken($csrf_token)) {
-            jsonResponse(['success' => false, 'message' => 'Invalid security token'], 400);
-        }
-
         $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
         $service_id = isset($_POST['service_id']) ? intval($_POST['service_id']) : null;
         $quantity = intval($_POST['quantity'] ?? 1);

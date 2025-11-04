@@ -11,64 +11,59 @@ if (isLoggedIn()) {
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate CSRF token
-    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
-        $error_message = "Invalid security token. Please try again.";
+    $username_or_email = sanitize($_POST['username_or_email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if (empty($username_or_email) || empty($password)) {
+        $error_message = "Please fill in all fields.";
     } else {
-        $username_or_email = sanitize($_POST['username_or_email'] ?? '');
-        $password = $_POST['password'] ?? '';
+        $conn = getDBConnection();
 
-        if (empty($username_or_email) || empty($password)) {
-            $error_message = "Please fill in all fields.";
-        } else {
-            $conn = getDBConnection();
+        // Check for user with username or email
+        $stmt = $conn->prepare("SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?");
+        $stmt->bind_param("ss", $username_or_email, $username_or_email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
 
-            // Check for user with username or email
-            $stmt = $conn->prepare("SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?");
-            $stmt->bind_param("ss", $username_or_email, $username_or_email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
-            $stmt->close();
+        if ($user) {
+            // Check if password is hashed or plain text (legacy support)
+            if (password_verify($password, $user['password'])) {
+                $password_valid = true;
+            } elseif ($password === $user['password']) {
+                // Legacy plain-text password - hash it now
+                $new_hash = hashPassword($password);
+                $update_stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $update_stmt->bind_param("si", $new_hash, $user['id']);
+                $update_stmt->execute();
+                $update_stmt->close();
+                $password_valid = true;
+            } else {
+                $password_valid = false;
+            }
 
-            if ($user) {
-                // Check if password is hashed or plain text (legacy support)
-                if (password_verify($password, $user['password'])) {
-                    $password_valid = true;
-                } elseif ($password === $user['password']) {
-                    // Legacy plain-text password - hash it now
-                    $new_hash = hashPassword($password);
-                    $update_stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
-                    $update_stmt->bind_param("si", $new_hash, $user['id']);
-                    $update_stmt->execute();
-                    $update_stmt->close();
-                    $password_valid = true;
+            if ($password_valid) {
+                // Set session data
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role'];
+
+                // Update cart count in session
+                $_SESSION['cart_count'] = getCartCount();
+
+                // Redirect based on role
+                if ($user['role'] === 'admin') {
+                    redirect('../admin/dashboard.php');
                 } else {
-                    $password_valid = false;
-                }
-
-                if ($password_valid) {
-                    // Set session data
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['role'] = $user['role'];
-
-                    // Update cart count in session
-                    $_SESSION['cart_count'] = getCartCount();
-
-                    // Redirect based on role
-                    if ($user['role'] === 'admin') {
-                        redirect('../admin/dashboard.php');
-                    } else {
-                        redirect('../user/dashboard.php');
-                    }
-                } else {
-                    $error_message = "Invalid email/username or password.";
+                    redirect('../index.php');
                 }
             } else {
                 $error_message = "Invalid email/username or password.";
             }
+        } else {
+            $error_message = "Invalid email/username or password.";
         }
     }
 }
@@ -101,8 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
 
             <form method="POST" action="">
-                <?= getCSRFInput() ?>
-
                 <div class="form-group">
                     <label for="username_or_email"><i class="fas fa-user"></i> Email or Username</label>
                     <input type="text" id="username_or_email" name="username_or_email"

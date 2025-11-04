@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'user'): ?>
                     <div class="cart-icon">
-                        <a href="/Petcare-pro/user/view_cart.php">
+                        <a href="/Petcare-pro/cart/view_cart.php">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                         <?php if (isset($_SESSION['cart_count']) && $_SESSION['cart_count'] > 0): ?>
@@ -86,7 +86,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <ul>
                         <li><a href="/Petcare-pro/user/dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                         <li><a href="/Petcare-pro/user/my_orders.php"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                        <li><a href="/Petcare-pro/user/view_cart.php"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                        <li><a href="/Petcare-pro/cart/view_cart.php"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
                         <li><a href="/Petcare-pro/user/my_pets.php"><i class="fas fa-paw"></i> My Pets</a></li>
                     </ul>
                 </div>

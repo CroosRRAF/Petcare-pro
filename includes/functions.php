@@ -145,36 +145,6 @@ function verifyPassword($password, $hash) {
 }
 
 /**
- * Generate CSRF token
- */
-function generateCSRFToken() {
-    startSession();
-
-    if (!isset($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-
-    return $_SESSION['csrf_token'];
-}
-
-/**
- * Validate CSRF token
- */
-function validateCSRFToken($token) {
-    startSession();
-
-    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
-}
-
-/**
- * Get CSRF token HTML input
- */
-function getCSRFInput() {
-    $token = generateCSRFToken();
-    return '<input type="hidden" name="csrf_token" value="' . $token . '">';
-}
-
-/**
  * Flash message functions
  */
 function setFlash($type, $message) {

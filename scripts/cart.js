@@ -42,16 +42,6 @@ async function addItemToCart(type, itemId, quantity = 1) {
     }
     formData.append("quantity", quantity);
 
-    // Get CSRF token from meta tag or generate one
-    const csrfToken =
-      document.querySelector('meta[name="csrf-token"]')?.content ||
-      document.querySelector('input[name="csrf_token"]')?.value ||
-      getCookie("csrf_token");
-
-    if (csrfToken) {
-      formData.append("csrf_token", csrfToken);
-    }
-
     const response = await fetch("/Petcare-pro/cart/add_to_cart.php", {
       method: "POST",
       headers: {
@@ -128,14 +118,6 @@ function showNotification(message, type = "info") {
     notification.classList.remove("show");
     setTimeout(() => notification.remove(), 300);
   }, 3000);
-}
-
-// Get cookie value by name
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
-  return null;
 }
 
 // Add notification styles if not already present

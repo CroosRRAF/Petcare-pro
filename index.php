@@ -23,8 +23,8 @@ require_once 'config/db_connect.php';
             <h1>Welcome to Petcare Pro</h1>
             <p>Your trusted partner in providing the best care, products, and services for your beloved pets. We're dedicated to keeping your furry friends happy and healthy!</p>
             <div class="hero-buttons">
-                <a href="products/foods.php" class="btn btn-primary">Shop Products</a>
-                <a href="services/pet_grooming.php" class="btn btn-outline">Our Services</a>
+                <a href="products/index.php" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Shop Products</a>
+                <a href="services/pet_grooming.php" class="btn btn-outline"><i class="fas fa-concierge-bell"></i> Our Services</a>
             </div>
         </div>
     </section>
@@ -184,8 +184,13 @@ require_once 'config/db_connect.php';
             <h2>Ready to Give Your Pet the Best Care?</h2>
             <p>Join thousands of happy pet owners who trust Petcare Pro for their pet's needs</p>
             <div class="hero-buttons">
-                <a href="auth/register.php" class="btn btn-primary">Get Started</a>
-                <a href="pages/contact.php" class="btn btn-outline">Contact Us</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="user/dashboard.php" class="btn btn-primary"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
+                    <a href="products/index.php" class="btn btn-outline"><i class="fas fa-shopping-bag"></i> Shop Now</a>
+                <?php else: ?>
+                    <a href="auth/register.php" class="btn btn-primary"><i class="fas fa-user-plus"></i> Get Started</a>
+                    <a href="auth/login.php" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <?php endif; ?>
             </div>
         </div>
     </section>

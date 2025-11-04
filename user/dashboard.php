@@ -60,164 +60,290 @@ $payments = $payment_stmt->get_result();
 $payment_stmt->close();
 
 // Fetch notifications
-$notif_stmt = $conn->prepare("SELECT message, created_at FROM notifications WHERE user_id = ? AND read_status = FALSE ORDER BY created_at DESC");
+$notif_stmt = $conn->prepare("SELECT message, created_at FROM notifications WHERE user_id = ? AND read_status = FALSE ORDER BY created_at DESC LIMIT 5");
 $notif_stmt->bind_param("i", $user_id);
 $notif_stmt->execute();
 $notifications = $notif_stmt->get_result();
 $notif_stmt->close();
+
+// Calculate statistics
+$total_orders = $orders->num_rows;
+$orders->data_seek(0); // Reset pointer
+
+$total_spent = 0;
+$orders_temp = $orders;
+while ($order = $orders_temp->fetch_assoc()) {
+    if ($order['status'] === 'completed') {
+        $total_spent += $order['total'];
+    }
+}
+$orders->data_seek(0); // Reset pointer
+
+$cart_count = $cart_items->num_rows;
+$cart_items->data_seek(0); // Reset pointer
+
+$unread_notifications = $notifications->num_rows;
+$notifications->data_seek(0); // Reset pointer
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard | Petcare Pro</title>
+    <title>User Dashboard - Petcare Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="../styles/header.css">
-    <style>
-        body { font-family: 'Arial', sans-serif; background-color: #f8f9fa; color: #333; }
-        .dashboard-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        .welcome { text-align: center; margin-bottom: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .section { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
-        .section:hover { transform: translateY(-5px); }
-        .section h2 { color: #495057; border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; }
-        .section h2 i { margin-right: 10px; color: #28a745; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
-        th { background-color: #f8f9fa; font-weight: bold; }
-        .btn { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; font-size: 16px; }
-        .btn:hover { background: linear-gradient(135deg, #218838 0%, #17a2b8 100%); }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #495057; }
-        input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 5px; font-size: 16px; }
-        input:focus { border-color: #28a745; outline: none; box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); }
-        .message { padding: 10px; margin-bottom: 20px; border-radius: 5px; }
-        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .nav-links { display: flex; gap: 15px; flex-wrap: wrap; }
-        .nav-links a { text-decoration: none; }
-        ul { list-style: none; padding: 0; }
-        ul li { padding: 10px 0; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; }
-        .status { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
-        .status.pending { background-color: #fff3cd; color: #856404; }
-        .status.completed { background-color: #d4edda; color: #155724; }
-        .status.cancelled { background-color: #f8d7da; color: #721c24; }
-        .status.failed { background-color: #f8d7da; color: #721c24; }
-    </style>
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
     <?php include '../includes/header.php'; ?>
+
     <div class="dashboard-container">
+        <!-- Welcome Section -->
         <div class="welcome">
-            <h1><i class="fas fa-user-circle"></i> Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
-            <p>Manage your account, view orders, and explore our services.</p>
+            <h1>
+                <i class="fas fa-user-circle"></i>
+                Welcome back, <?php echo htmlspecialchars($user['username']); ?>!
+            </h1>
+            <p>Manage your account, track orders, and explore our pet care services.</p>
         </div>
+
+        <!-- Success/Error Messages -->
         <?php if (isset($message)): ?>
             <div class="message <?php echo strpos($message, 'success') !== false ? 'success' : 'error'; ?>">
+                <i class="fas fa-<?php echo strpos($message, 'success') !== false ? 'check-circle' : 'exclamation-circle'; ?>"></i>
                 <?php echo $message; ?>
             </div>
         <?php endif; ?>
 
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-shopping-bag"></i>
+                <h3><?php echo $total_orders; ?></h3>
+                <p>Total Orders</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3><?php echo $cart_count; ?></h3>
+                <p>Items in Cart</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>$<?php echo number_format($total_spent, 2); ?></h3>
+                <p>Total Spent</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-bell"></i>
+                <h3><?php echo $unread_notifications; ?></h3>
+                <p>Notifications</p>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
         <div class="dashboard-grid">
+            <!-- Update Profile Section -->
             <div class="section">
                 <h2><i class="fas fa-user-edit"></i> Update Profile</h2>
                 <form method="POST">
                     <div class="form-group">
-                        <label><i class="fas fa-user"></i> Username:</label>
+                        <label><i class="fas fa-user"></i> Username</label>
                         <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email:</label>
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
                         <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
                     </div>
-                    <button type="submit" name="update_profile" class="btn"><i class="fas fa-save"></i> Update Profile</button>
+                    <button type="submit" name="update_profile" class="btn">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
                 </form>
             </div>
 
+            <!-- Current Cart Section -->
             <div class="section">
-                <h2><i class="fas fa-shopping-cart"></i> Current Cart Items</h2>
+                <h2><i class="fas fa-shopping-cart"></i> Current Cart</h2>
                 <?php if ($cart_items->num_rows > 0): ?>
                     <table>
-                        <tr><th>Product</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
-                        <?php while ($item = $cart_items->fetch_assoc()): ?>
+                        <thead>
                             <tr>
-                                <td><?php echo htmlspecialchars($item['name']); ?></td>
-                                <td><?php echo $item['quantity']; ?></td>
-                                <td>$<?php echo number_format($item['price'], 2); ?></td>
-                                <td>$<?php echo number_format($item['quantity'] * $item['price'], 2); ?></td>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
                             </tr>
-                        <?php endwhile; ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $cart_total = 0;
+                            while ($item = $cart_items->fetch_assoc()):
+                                $item_total = $item['quantity'] * $item['price'];
+                                $cart_total += $item_total;
+                            ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($item['name']); ?></td>
+                                    <td><?php echo $item['quantity']; ?></td>
+                                    <td>$<?php echo number_format($item['price'], 2); ?></td>
+                                    <td class="price">$<?php echo number_format($item_total, 2); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                <td colspan="3" style="text-align: right;">Cart Total:</td>
+                                <td class="price">$<?php echo number_format($cart_total, 2); ?></td>
+                            </tr>
+                        </tbody>
                     </table>
+                    <div style="margin-top: 20px;">
+                        <a href="../cart/view_cart.php" class="btn">
+                            <i class="fas fa-eye"></i> View Full Cart
+                        </a>
+                    </div>
                 <?php else: ?>
-                    <p class="empty">Your cart is empty.</p>
+                    <div class="empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty.</p>
+                        <a href="../products/index.php" class="btn" style="margin-top: 15px;">
+                            <i class="fas fa-shopping-bag"></i> Start Shopping
+                        </a>
+                    </div>
                 <?php endif; ?>
             </div>
 
+            <!-- Recent Orders Section -->
             <div class="section">
-                <h2><i class="fas fa-history"></i> Previous Orders</h2>
+                <h2><i class="fas fa-history"></i> Recent Orders</h2>
                 <?php if ($orders->num_rows > 0): ?>
                     <table>
-                        <tr><th>Order ID</th><th>Total</th><th>Status</th><th>Date</th></tr>
-                        <?php while ($order = $orders->fetch_assoc()): ?>
+                        <thead>
                             <tr>
-                                <td><?php echo $order['id']; ?></td>
-                                <td>$<?php echo number_format($order['total'], 2); ?></td>
-                                <td><span class="status <?php echo $order['status']; ?>"><?php echo ucfirst($order['status']); ?></span></td>
-                                <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
+                                <th>Order #</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
                             </tr>
-                        <?php endwhile; ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $order_count = 0;
+                            while ($order = $orders->fetch_assoc()):
+                                if ($order_count >= 5) break; // Show only 5 recent orders
+                                $order_count++;
+                            ?>
+                                <tr>
+                                    <td><strong>#<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></strong></td>
+                                    <td class="price">$<?php echo number_format($order['total'], 2); ?></td>
+                                    <td><span class="status <?php echo strtolower($order['status']); ?>"><?php echo ucfirst($order['status']); ?></span></td>
+                                    <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
                     </table>
+                    <?php if ($orders->num_rows > 5): ?>
+                        <div style="margin-top: 20px;">
+                            <a href="my_orders.php" class="btn btn-outline">
+                                <i class="fas fa-list"></i> View All Orders
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <p class="empty">No previous orders.</p>
+                    <div class="empty">
+                        <i class="fas fa-box-open"></i>
+                        <p>No orders yet. Start shopping to see your orders here!</p>
+                    </div>
                 <?php endif; ?>
             </div>
 
+            <!-- Payment History Section -->
             <div class="section">
-                <h2><i class="fas fa-credit-card"></i> Payments</h2>
+                <h2><i class="fas fa-credit-card"></i> Payment History</h2>
                 <?php if ($payments->num_rows > 0): ?>
                     <table>
-                        <tr><th>Amount</th><th>Method</th><th>Status</th><th>Date</th></tr>
-                        <?php while ($payment = $payments->fetch_assoc()): ?>
+                        <thead>
                             <tr>
-                                <td>$<?php echo number_format($payment['amount'], 2); ?></td>
-                                <td><?php echo htmlspecialchars($payment['method'] ?: 'N/A'); ?></td>
-                                <td><span class="status <?php echo $payment['status']; ?>"><?php echo ucfirst($payment['status']); ?></span></td>
-                                <td><?php echo date('M d, Y', strtotime($payment['created_at'])); ?></td>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Date</th>
                             </tr>
-                        <?php endwhile; ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $payment_count = 0;
+                            while ($payment = $payments->fetch_assoc()):
+                                if ($payment_count >= 5) break; // Show only 5 recent payments
+                                $payment_count++;
+                            ?>
+                                <tr>
+                                    <td class="price">$<?php echo number_format($payment['amount'], 2); ?></td>
+                                    <td><?php echo htmlspecialchars($payment['method'] ?: 'N/A'); ?></td>
+                                    <td><span class="status <?php echo strtolower($payment['status']); ?>"><?php echo ucfirst($payment['status']); ?></span></td>
+                                    <td><?php echo date('M d, Y', strtotime($payment['created_at'])); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
                     </table>
                 <?php else: ?>
-                    <p class="empty">No payments found.</p>
+                    <div class="empty">
+                        <i class="fas fa-wallet"></i>
+                        <p>No payment history available.</p>
+                    </div>
                 <?php endif; ?>
             </div>
 
+            <!-- Notifications Section -->
             <div class="section">
-                <h2><i class="fas fa-bell"></i> Notifications</h2>
+                <h2><i class="fas fa-bell"></i> Recent Notifications</h2>
                 <?php if ($notifications->num_rows > 0): ?>
                     <ul>
                         <?php while ($notif = $notifications->fetch_assoc()): ?>
                             <li>
-                                <span><?php echo htmlspecialchars($notif['message']); ?></span>
-                                <small><?php echo date('M d, Y H:i', strtotime($notif['created_at'])); ?></small>
+                                <span><i class="fas fa-info-circle" style="color: #3c91e6; margin-right: 8px;"></i><?php echo htmlspecialchars($notif['message']); ?></span>
+                                <small><?php echo date('M d, H:i', strtotime($notif['created_at'])); ?></small>
                             </li>
                         <?php endwhile; ?>
                     </ul>
                 <?php else: ?>
-                    <p class="empty">No new notifications.</p>
+                    <div class="empty">
+                        <i class="fas fa-bell-slash"></i>
+                        <p>No new notifications.</p>
+                    </div>
                 <?php endif; ?>
             </div>
 
+            <!-- Quick Navigation Section -->
             <div class="section">
-                <h2><i class="fas fa-compass"></i> Quick Navigation</h2>
-                <div class="nav-links">
-                    <a href="../index.php" class="btn"><i class="fas fa-home"></i> Home</a>
-                    <a href="../pages/products.php" class="btn"><i class="fas fa-box"></i> Products</a>
-                    <a href="../pages/services.php" class="btn"><i class="fas fa-concierge-bell"></i> Services</a>
+                <h2><i class="fas fa-rocket"></i> Quick Actions</h2>
+                <div class="quick-actions">
+                    <a href="../products/index.php" class="quick-action-btn">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Shop Products</span>
+                    </a>
+                    <a href="../services/pet_grooming.php" class="quick-action-btn">
+                        <i class="fas fa-cut"></i>
+                        <span>Book Grooming</span>
+                    </a>
+                    <a href="../cart/view_cart.php" class="quick-action-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>View Cart</span>
+                    </a>
+                    <a href="my_orders.php" class="quick-action-btn">
+                        <i class="fas fa-box"></i>
+                        <span>My Orders</span>
+                    </a>
+                    <a href="../pages/contact.php" class="quick-action-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact Us</span>
+                    </a>
+                    <a href="../auth/logout.php" class="quick-action-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
