@@ -1,0 +1,81 @@
+Petcare-pro
+├─ index.php
+├─ LICENSE
+├─ README.md
+├─ admin
+│  ├─ add_products.php
+│  ├─ add_services.php
+│  ├─ dashboard.php
+│  ├─ edit_products.php
+│  ├─ edit_services.php
+│  ├─ manage_products.php
+│  └─ manage_services.php
+├─ api
+├─ assets
+│  ├─ database
+│  │  ├─ cart_migration.sql
+│  │  └─ db_petcare.sql
+│  └─ images
+│     ├─ boarding
+│     ├─ foods
+│     ├─ grooming
+│     ├─ health
+│     ├─ products
+│     ├─ services
+│     └─ tools
+├─ auth
+│  ├─ forgot_password.php
+│  ├─ login.php
+│  ├─ logout.php
+│  └─ register.php
+├─ cart
+│  ├─ add_to_cart.php
+│  ├─ clear_cart.php
+│  ├─ remove_from_cart.php
+│  ├─ update_cart.php
+│  └─ view_cart.php
+├─ config
+│  └─ db_connect.php
+├─ includes
+│  ├─ footer.php
+│  ├─ functions.php
+│  └─ header.php
+├─ orders
+├─ pages
+│  ├─ products.php
+│  └─ services.php
+├─ payment
+├─ products
+│  ├─ foods.php
+│  ├─ index.php
+│  └─ tools.php
+├─ scripts
+│  ├─ cart.js
+│  ├─ footer.js
+│  ├─ header.js
+│  └─ main.js
+├─ services
+│  ├─ pet_boarding.php
+│  ├─ pet_grooming.php
+│  └─ pet_health.php
+├─ styles
+│  ├─ auth.css
+│  ├─ cart.css
+│  ├─ dashboard.css
+│  ├─ footer.css
+│  ├─ header.css
+│  ├─ landing.css
+│  ├─ products.css
+│  ├─ services.css
+│  └─ admin
+│     ├─ common.css
+│     ├─ dashboard.css
+│     ├─ forms.css
+│     └─ tables.css
+├─ uploads
+└─ user
+   ├─ add_to_cart.php
+   ├─ dashboard.php
+   ├─ product_addtocart.php
+   ├─ remove_from_cart.php
+   └─ view_cart.php
