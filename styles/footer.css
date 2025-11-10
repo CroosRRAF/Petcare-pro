@@ -4,8 +4,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -48,9 +48,9 @@ footer::before {
   height: 4px;
   background: linear-gradient(
     90deg,
-    var(--accent) 0%,
+    var(--primary-color) 0%,
     var(--success) 50%,
-    var(--accent) 100%
+    var(--primary-color) 100%
   );
 }
 
@@ -86,7 +86,7 @@ footer::before {
   bottom: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--success));
+  background: linear-gradient(90deg, var(--primary-color), var(--success));
   border-radius: 2px;
 }
 
@@ -96,7 +96,7 @@ footer::before {
   gap: 12px;
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--primary-color);
   margin-bottom: 22px;
   transition: transform 0.3s ease;
 }
@@ -151,7 +151,7 @@ footer::before {
 }
 
 .footer-column ul li a:hover {
-  color: var(--accent);
+  color: var(--primary-color);
   text-shadow: 0 0 8px rgba(60, 145, 230, 0.5);
 }
 
@@ -159,7 +159,7 @@ footer::before {
   margin-right: 12px;
   width: 22px;
   text-align: center;
-  color: var(--accent);
+  color: var(--primary-color);
   transition: transform 0.3s ease;
 }
 
@@ -175,7 +175,7 @@ footer::before {
 
 .footer-contact p i {
   margin-right: 15px;
-  color: var(--accent);
+  color: var(--primary-color);
   margin-top: 3px;
   min-width: 20px;
 }
@@ -225,9 +225,9 @@ footer::before {
 }
 
 .footer-social a:hover {
-  background: var(--accent);
+  background: var(--primary-color);
   transform: translateY(-8px) rotate(360deg);
-  border-color: var(--accent);
+  border-color: var(--primary-color);
   box-shadow: 0 10px 25px rgba(60, 145, 230, 0.4);
 }
 
@@ -245,7 +245,7 @@ footer::before {
 }
 
 .footer-bottom a {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -265,7 +265,7 @@ footer::before {
 }
 
 .footer-newsletter:focus-within {
-  border-color: var(--accent);
+  border-color: var(--primary-color);
   box-shadow: 0 8px 30px rgba(60, 145, 230, 0.4);
   transform: translateY(-2px);
 }
@@ -291,7 +291,7 @@ footer::before {
 }
 
 .footer-newsletter button {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   border: none;
   padding: 0 30px;
@@ -339,7 +339,7 @@ footer::before {
     rgba(80, 200, 120, 0.1)
   );
   border-radius: 12px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary-color);
   transition: all 0.3s ease;
 }
 
@@ -349,7 +349,7 @@ footer::before {
 }
 
 .service-hours h4 {
-  color: var(--accent);
+  color: var(--primary-color);
   margin-bottom: 12px;
   font-size: 1.1rem;
   font-weight: 700;

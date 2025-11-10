@@ -26,28 +26,53 @@ $result = $conn->query($query);
     <?php include "../includes/header.php"; ?>
 
     <div class="products-container">
-        <div class="products-header">
-            <h1><i class="fas fa-tools"></i> Pet Care Tools</h1>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1>
+                    <i class="fas fa-tools"></i> Pet Care Tools
+                </h1>
+            </div>
         </div>
 
+        <!-- Products Grid -->
         <div class="products-grid">
             <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
+                <?php while ($product = $result->fetch_assoc()): ?>
                     <div class="product-card">
-                        <img src="../assets/images/<?= htmlspecialchars($row['image_url']) ?>"
-                             alt="<?= htmlspecialchars($row['name']) ?>"
-                             class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name"><?= htmlspecialchars($row['name']) ?></h3>
-                            <div class="product-price">$<?= number_format($row['price'], 2) ?></div>
-                            <p class="product-description"><?= htmlspecialchars($row['description']) ?></p>
-                            <div class="product-actions">
+                        <div class="card-image-container">
+                            <img src="../assets/images/<?= htmlspecialchars($product['image_url']) ?>"
+                                alt="<?= htmlspecialchars($product['name']) ?>"
+                                class="card-image"
+                                onerror="this.src='../assets/images/placeholder-product.jpg'">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                        <button onclick="addToCart(<?= $product['id'] ?>)" class="btn btn-success">
+                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                        </button>
+                                    <?php else: ?>
+                                        <a href="../auth/login.php" class="btn btn-success">
+                                            <i class="fas fa-sign-in-alt"></i> Login to Buy
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <span class="badge badge-success">Tools</span>
+                                <h3 class="card-title"><?= htmlspecialchars($product['name']) ?></h3>
+                            </div>
+                            <p class="card-description"><?= htmlspecialchars($product['description']) ?></p>
+                            <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
+                            <div class="card-actions">
                                 <?php if (isset($_SESSION['user_id'])): ?>
-                                    <button onclick="addToCart(<?= $row['id'] ?>)" class="btn btn-primary">
+                                    <button onclick="addToCart(<?= $product['id'] ?>)" class="btn btn-success">
                                         <i class="fas fa-cart-plus"></i> Add to Cart
                                     </button>
                                 <?php else: ?>
-                                    <a href="../auth/login.php" class="btn btn-primary">
+                                    <a href="../auth/login.php" class="btn btn-success">
                                         <i class="fas fa-sign-in-alt"></i> Login to Buy
                                     </a>
                                 <?php endif; ?>
@@ -56,12 +81,18 @@ $result = $conn->query($query);
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
-                <p>No tools available.</p>
+                <div class="empty-state">
+                    <i class="fas fa-tools fa-4x"></i>
+                    <h3>No tools available</h3>
+                    <p>Please check back later for our pet care tools.</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 
     <?php include "../includes/footer.php"; ?>
-    <script src="../scripts/cart.js"></script>
+
+    <!-- Cart Modal -->
+    <?php include '../includes/cart_modal.php'; ?>
 </body>
 </html>

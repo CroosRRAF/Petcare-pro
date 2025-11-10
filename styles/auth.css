@@ -6,8 +6,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -63,13 +63,13 @@ body {
 
 .auth-logo i {
   font-size: 2.5rem;
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .auth-logo span {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .auth-header h2 {
@@ -112,7 +112,7 @@ input[type="password"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  border-color: var(--accent);
+  border-color: var(--primary-color);
   outline: none;
   box-shadow: 0 0 0 3px rgba(60, 145, 230, 0.1);
 }
@@ -120,7 +120,7 @@ input[type="password"]:focus {
 .btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color-hover));
   color: var(--white);
   border: none;
   border-radius: 8px;
@@ -149,7 +149,7 @@ input[type="password"]:focus {
 }
 
 .link-container a {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
   transition: color 0.3s ease;
@@ -157,7 +157,7 @@ input[type="password"]:focus {
 }
 
 .link-container a:hover {
-  color: var(--accent-hover);
+  color: var(--primary-color-hover);
   text-decoration: underline;
 }
 
@@ -213,7 +213,7 @@ input[type="password"]:focus {
 }
 
 .back-home a {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
   display: inline-flex;
@@ -223,7 +223,7 @@ input[type="password"]:focus {
 }
 
 .back-home a:hover {
-  color: var(--accent-hover);
+  color: var(--primary-color-hover);
   gap: 10px;
 }
 

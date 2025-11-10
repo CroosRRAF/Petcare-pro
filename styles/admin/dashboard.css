@@ -42,7 +42,7 @@
 }
 
 .stat-card:nth-child(1) .stat-icon {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .stat-card:nth-child(4) .stat-icon {
-  background: linear-gradient(135deg, var(--error), var(--accent));
+  background: linear-gradient(135deg, var(--error), var(--primary-color));
   color: white;
 }
 
@@ -111,7 +111,7 @@
   gap: 10px;
   padding: 15px 25px;
   text-decoration: none;
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   border-radius: 10px;
   font-weight: 600;
@@ -173,7 +173,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   display: flex;
   align-items: center;

@@ -11,54 +11,85 @@
 </head>
 <body>
     <?php
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        include '../includes/header.php';
-        require_once '../includes/functions.php';
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    include '../includes/header.php';
+    require_once '../includes/functions.php';
 
-        $conn = getDBConnection();
+    $conn = getDBConnection();
 
-        $query = "SELECT * FROM services WHERE category = 'Boarding'";
-        $result = $conn->query($query);
+    $query = "SELECT * FROM services WHERE category = 'Boarding'";
+    $result = $conn->query($query);
     ?>
 
     <div class="services-container">
-        <div class="services-header">
-            <h2><i class="fas fa-home"></i> Pet Boarding Services</h2>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1>
+                    <i class="fas fa-home"></i> Pet Boarding Services
+                </h1>
+            </div>
         </div>
 
-        <div class="service-grid">
+        <!-- Services Grid -->
+        <div class="services-grid">
             <?php if ($result && $result->num_rows > 0): ?>
                 <?php while ($service = $result->fetch_assoc()): ?>
-                    <div class="service-item">
-                        <img src="../assets/images/<?= htmlspecialchars($service['image_url']) ?>"
-                            alt="<?= htmlspecialchars($service['name']) ?>">
-                        <div class="service-content">
-                            <span class="category">Boarding</span>
-                            <h3><?= htmlspecialchars($service['name']) ?></h3>
-                            <p><?= htmlspecialchars($service['description']) ?></p>
-                            <?php if (isset($_SESSION['user_id'])): ?>
-                                <button onclick="addServiceToCart(<?= $service['id'] ?>)" class="book-now">
-                                    <i class="fas fa-calendar-check"></i> Book Now
-                                </button>
-                            <?php else: ?>
-                                <a href="../auth/login.php" class="book-now">
-                                    <i class="fas fa-sign-in-alt"></i> Login to Book
-                                </a>
-                            <?php endif; ?>
+                    <div class="service-card">
+                        <div class="card-image-container">
+                            <img src="../assets/images/<?= htmlspecialchars($service['image_url']) ?>"
+                                alt="<?= htmlspecialchars($service['name']) ?>"
+                                class="card-image"
+                                onerror="this.src='../assets/images/placeholder-service.jpg'">
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                        <button onclick="addServiceToCart(<?= $service['id'] ?>)" class="btn btn-primary">
+                                            <i class="fas fa-calendar-check"></i> Book Now
+                                        </button>
+                                    <?php else: ?>
+                                        <a href="../auth/login.php" class="btn btn-primary">
+                                            <i class="fas fa-sign-in-alt"></i> Login to Book
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <span class="badge badge-primary">Boarding</span>
+                                <h3 class="card-title"><?= htmlspecialchars($service['name']) ?></h3>
+                            </div>
+                            <p class="card-description"><?= htmlspecialchars($service['description']) ?></p>
+                            <div class="card-actions">
+                                <?php if (isset($_SESSION['user_id'])): ?>
+                                    <button onclick="addServiceToCart(<?= $service['id'] ?>)" class="btn btn-primary">
+                                        <i class="fas fa-calendar-check"></i> Book Now
+                                    </button>
+                                <?php else: ?>
+                                    <a href="../auth/login.php" class="btn btn-primary">
+                                        <i class="fas fa-sign-in-alt"></i> Login to Book
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
-                <p>No boarding services available at the moment.</p>
+                <div class="empty-state">
+                    <i class="fas fa-home fa-4x"></i>
+                    <h3>No boarding services available</h3>
+                    <p>Please check back later for our boarding services.</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 
-    <?php
-        include '../includes/footer.php';
-    ?>
-    <script src="../scripts/cart.js"></script>
+    <?php include '../includes/footer.php'; ?>
+
+    <!-- Cart Modal -->
+    <?php include '../includes/cart_modal.php'; ?>
 </body>
 </html>

@@ -19,10 +19,10 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="/Petcare-pro/index.php"><i class="fas fa-chevron-right"></i> Home</a></li>
-                    <li><a href="/Petcare-pro/pages/about.php"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="/Petcare-pro/about.php"><i class="fas fa-chevron-right"></i> About Us</a></li>
                     <li><a href="/Petcare-pro/products/foods.php"><i class="fas fa-chevron-right"></i> Products</a></li>
                     <li><a href="/Petcare-pro/services/pet_grooming.php"><i class="fas fa-chevron-right"></i> Services</a></li>
-                    <li><a href="/Petcare-pro/pages/contact.php"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="/Petcare-pro/contact.php"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
 
@@ -62,10 +62,7 @@
         </div>
 
         <div class="footer-bottom">
-            &copy; <?php echo date('Y'); ?> Petcare Pro. All Rights Reserved. |
-            <a href="/Petcare-pro/pages/privacy.php">Privacy Policy</a> |
-            <a href="/Petcare-pro/pages/terms.php">Terms of Service</a> |
-            <a href="/Petcare-pro/pages/faq.php">FAQ</a>
+            &copy; <?php echo date('Y'); ?> Petcare Pro. All Rights Reserved.
         </div>
     </footer>
 

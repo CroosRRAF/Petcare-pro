@@ -273,6 +273,7 @@ $_SESSION['cart_count'] = $total_items;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: `product_id=${productId}&quantity=${newQuantity}`
                 });
@@ -301,6 +302,7 @@ $_SESSION['cart_count'] = $total_items;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: `product_id=${productId}`
                 });
@@ -329,6 +331,7 @@ $_SESSION['cart_count'] = $total_items;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: ''
                 });
@@ -353,6 +356,7 @@ $_SESSION['cart_count'] = $total_items;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: `product_id=${productId}&quantity=1`
                 });

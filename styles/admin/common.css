@@ -6,8 +6,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -31,7 +31,7 @@
   text-align: center;
   margin-bottom: 40px;
   padding: 30px;
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   border-radius: 15px;
   color: white;
   box-shadow: var(--card-shadow);
@@ -88,7 +88,7 @@
 
 .admin-nav nav ul li a:hover,
 .admin-nav nav ul li a.active {
-  background-color: var(--accent);
+  background-color: var(--primary-color);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(60, 145, 230, 0.3);
@@ -115,7 +115,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
 }
 
@@ -132,8 +132,8 @@
 
 .btn-secondary:hover {
   background-color: var(--surface);
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .btn-danger {

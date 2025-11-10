@@ -48,7 +48,7 @@ table {
 
 .admin-table thead,
 table thead {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
 }
 
@@ -94,7 +94,7 @@ table td {
 /* Table Cell Specific Styles */
 .table-id {
   font-weight: 600;
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .table-image {
@@ -124,7 +124,7 @@ table td {
   display: inline-block;
   padding: 6px 14px;
   background-color: rgba(60, 145, 230, 0.1);
-  color: var(--accent);
+  color: var(--primary-color);
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -177,13 +177,13 @@ table td {
 
 .table-action-btn.edit,
 .btn-edit {
-  background-color: var(--accent);
+  background-color: var(--primary-color);
   color: white;
 }
 
 .table-action-btn.edit:hover,
 .btn-edit:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--primary-color-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(60, 145, 230, 0.3);
 }
@@ -259,9 +259,9 @@ table td {
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background-color: var(--accent);
+  background-color: var(--primary-color);
   color: white;
-  border-color: var(--accent);
+  border-color: var(--primary-color);
 }
 
 .pagination-btn:disabled {
@@ -270,9 +270,9 @@ table td {
 }
 
 .pagination-btn.active {
-  background-color: var(--accent);
+  background-color: var(--primary-color);
   color: white;
-  border-color: var(--accent);
+  border-color: var(--primary-color);
 }
 
 /* Responsive Table Styles */
@@ -354,7 +354,7 @@ table td {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, var(--success), var(--accent));
+  background: linear-gradient(135deg, var(--success), var(--primary-color));
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -385,6 +385,6 @@ table td {
 
 .btn-back:hover {
   background-color: var(--surface);
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }

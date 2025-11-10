@@ -28,8 +28,8 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="/Petcare-pro/services/pet_boarding.php"><i class="fas fa-home"></i> Boarding</a>
                     </div>
                 </li>
-                <li><a href="/Petcare-pro/pages/about.php">About</a></li>
-                <li><a href="/Petcare-pro/pages/contact.php">Contact</a></li>
+                <li><a href="/Petcare-pro/about.php">About</a></li>
+                <li><a href="/Petcare-pro/contact.php">Contact</a></li>
             </ul>
 
             <div class="icons">
@@ -114,8 +114,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li><a href="/Petcare-pro/services/pet_grooming.php"><i class="fas fa-cut"></i> Grooming</a></li>
                 <li><a href="/Petcare-pro/services/pet_health.php"><i class="fas fa-heartbeat"></i> Health Care</a></li>
                 <li><a href="/Petcare-pro/services/pet_boarding.php"><i class="fas fa-home"></i> Boarding</a></li>
-                <li><a href="/Petcare-pro/pages/about.php"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="/Petcare-pro/pages/contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="/Petcare-pro/about.php"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="/Petcare-pro/contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="<?php echo ($_SESSION['role'] == 'admin') ? '/Petcare-pro/admin/dashboard.php' : '/Petcare-pro/user/dashboard.php'; ?>"><i class="fas fa-user"></i> Dashboard</a></li>
                     <li><a href="/Petcare-pro/auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

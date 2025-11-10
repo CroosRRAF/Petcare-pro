@@ -6,8 +6,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -30,7 +30,7 @@ body {
 
 /* Page Header */
 .page-header {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   padding: 40px 0;
   color: white;
   margin-bottom: 40px;
@@ -202,7 +202,7 @@ body {
 }
 
 .item-name a:hover {
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .item-description {
@@ -213,7 +213,7 @@ body {
 }
 
 .item-price {
-  color: var(--accent);
+  color: var(--primary-color);
   font-weight: 600;
   font-size: 0.95rem;
 }
@@ -240,9 +240,9 @@ body {
 .qty-btn {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--primary-color);
   background: white;
-  color: var(--accent);
+  color: var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -253,7 +253,7 @@ body {
 }
 
 .qty-btn:hover {
-  background: var(--accent);
+  background: var(--primary-color);
   color: white;
 }
 
@@ -279,7 +279,7 @@ body {
 .item-total-price {
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .btn-remove-item {
@@ -343,7 +343,7 @@ body {
 
 .summary-row .price {
   font-weight: 600;
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .free-shipping {
@@ -378,7 +378,7 @@ body {
 }
 
 .total-row .price strong {
-  color: var(--accent);
+  color: var(--primary-color);
   font-size: 1.5rem;
 }
 
@@ -476,7 +476,7 @@ body {
 }
 
 .recommended-info .price {
-  color: var(--accent);
+  color: var(--primary-color);
   font-weight: 600;
   font-size: 0.95rem;
 }
@@ -502,7 +502,7 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
 }
 
@@ -513,12 +513,12 @@ body {
 
 .btn-outline {
   background-color: white;
-  color: var(--accent);
-  border: 2px solid var(--accent);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 .btn-outline:hover {
-  background-color: var(--accent);
+  background-color: var(--primary-color);
   color: white;
 }
 
@@ -565,11 +565,11 @@ body {
 }
 
 .notification-info {
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary-color);
 }
 
 .notification-info i {
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 /* Responsive Design */

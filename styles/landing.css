@@ -6,8 +6,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -20,7 +20,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: url("../images/bg.jpg") center/cover;
+  background: url("../assets/images/bg.jpg") center/cover;
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
@@ -67,7 +67,7 @@
 
 .btn-primary {
   background-color: var(--white);
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .btn-primary:hover {
@@ -83,7 +83,7 @@
 
 .btn-outline:hover {
   background-color: var(--white);
-  color: var(--accent);
+  color: var(--primary-color);
   transform: translateY(-3px);
 }
 
@@ -114,7 +114,11 @@
   transform: translateX(-50%);
   width: 100px;
   height: 4px;
-  background: linear-gradient(to right, var(--accent), var(--accent-hover));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-hover)
+  );
   border-radius: 2px;
 }
 
@@ -166,13 +170,17 @@
 .feature-card:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: var(--shadow-lg);
-  border-color: var(--accent);
+  border-color: var(--primary-color);
 }
 
 .feature-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-hover)
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -262,7 +270,7 @@
 }
 
 .btn-learn-more {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -273,7 +281,7 @@
 
 .btn-learn-more:hover {
   gap: 1rem;
-  color: var(--accent-hover);
+  color: var(--primary-hover);
 }
 
 /* Products Section */
@@ -347,7 +355,11 @@
 
 /* CTA Section */
 .cta-section {
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-hover)
+  );
   padding: 80px 5%;
   text-align: center;
   color: var(--white);
@@ -390,7 +402,7 @@
 
 .testimonial-quote {
   font-size: 3rem;
-  color: var(--accent);
+  color: var(--primary-color);
   opacity: 0.2;
   position: absolute;
   top: 10px;

@@ -6,8 +6,8 @@
   --surface: #f7f9fa;
   --primary-text: #222222;
   --secondary-text: #555555;
-  --accent: #3c91e6;
-  --accent-hover: #2a6ebb;
+  --primary-color: #3c91e6;
+  --primary-hover: #2a6ebb;
   --success: #50c878;
   --warning: #ffa726;
   --error: #e53e3e;
@@ -36,7 +36,7 @@ body {
 .welcome {
   text-align: center;
   margin-bottom: 40px;
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   padding: 40px 30px;
   border-radius: 15px;
@@ -115,7 +115,7 @@ body {
 
 .section h2 {
   color: var(--primary-text);
-  border-bottom: 3px solid var(--accent);
+  border-bottom: 3px solid var(--primary-color);
   padding-bottom: 15px;
   margin-bottom: 25px;
   display: flex;
@@ -125,7 +125,7 @@ body {
 
 .section h2 i {
   margin-right: 12px;
-  color: var(--accent);
+  color: var(--primary-color);
   font-size: 1.6rem;
 }
 
@@ -138,7 +138,7 @@ body {
 }
 
 .stat-card {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   padding: 25px;
   border-radius: 12px;
@@ -184,7 +184,7 @@ body {
 }
 
 .form-group label i {
-  color: var(--accent);
+  color: var(--primary-color);
 }
 
 .form-group input {
@@ -198,7 +198,7 @@ body {
 }
 
 .form-group input:focus {
-  border-color: var(--accent);
+  border-color: var(--primary-color);
   outline: none;
   box-shadow: 0 0 0 3px rgba(60, 145, 230, 0.1);
   background-color: var(--white);
@@ -206,7 +206,7 @@ body {
 
 /* Buttons */
 .btn {
-  background: linear-gradient(135deg, var(--accent), var(--success));
+  background: linear-gradient(135deg, var(--primary-color), var(--success));
   color: white;
   padding: 12px 24px;
   border: none;
@@ -233,13 +233,13 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
   box-shadow: none;
 }
 
 .btn-outline:hover {
-  background: var(--accent);
+  background: var(--primary-color);
   color: white;
 }
 
@@ -366,21 +366,21 @@ ul li small {
 
 /* Price Display */
 .price {
-  color: var(--accent);
+  color: var(--primary-color);
   font-weight: 700;
   font-size: 1.1rem;
 }
 
 /* Action Links */
 .action-link {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .action-link:hover {
-  color: var(--accent-hover);
+  color: var(--primary-color-hover);
   text-decoration: underline;
 }
 
@@ -404,9 +404,9 @@ ul li small {
 }
 
 .quick-action-btn:hover {
-  background: var(--accent);
+  background: var(--primary-color);
   color: white;
-  border-color: var(--accent);
+  border-color: var(--primary-color);
   transform: translateY(-3px);
   box-shadow: var(--card-shadow);
 }

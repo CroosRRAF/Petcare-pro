@@ -44,20 +44,19 @@ Petcare-pro
 ├─ pages
 │  ├─ products.php
 │  └─ services.php
-├─ payment
 ├─ products
 │  ├─ foods.php
 │  ├─ index.php
 │  └─ tools.php
+├─ services
+│  ├─ pet_boarding.php
+│  ├─ pet_grooming.php
+│  └─ pet_health.php
 ├─ scripts
 │  ├─ cart.js
 │  ├─ footer.js
 │  ├─ header.js
 │  └─ main.js
-├─ services
-│  ├─ pet_boarding.php
-│  ├─ pet_grooming.php
-│  └─ pet_health.php
 ├─ styles
 │  ├─ auth.css
 │  ├─ cart.css
