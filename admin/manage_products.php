@@ -42,82 +42,140 @@ $result = $conn->query("SELECT * FROM products");
     <?php include '../includes/header.php'; ?>
 
     <div class="admin-container">
-        <div class="admin-header">
-            <h1><i class="fas fa-box"></i> Manage Products</h1>
-            <p>View and manage all products in your pet care store</p>
-        </div>
-
-        <div class="admin-nav">
-            <nav>
-                <ul>
-                    <li><a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="add_products.php"><i class="fas fa-plus"></i> Add Product</a></li>
-                    <li><a href="manage_services.php"><i class="fas fa-concierge-bell"></i> Manage Services</a></li>
-                    <li><a href="add_services.php"><i class="fas fa-plus"></i> Add Service</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <div class="form-container">
-            <?php if ($error): ?>
-                <div class="alert alert-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <?= htmlspecialchars($error) ?>
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Admin Panel</h3>
+                    <p>Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</p>
                 </div>
-            <?php elseif ($success): ?>
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    <?= htmlspecialchars($success) ?>
+                <nav class="sidebar-nav">
+                    <a href="dashboard.php" class="sidebar-nav-item">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="manage_products.php" class="sidebar-nav-item active">
+                        <i class="fas fa-box"></i> Manage Products
+                    </a>
+                    <a href="manage_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-concierge-bell"></i> Manage Services
+                    </a>
+                    <a href="add_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Products
+                    </a>
+                    <a href="add_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Services
+                    </a>
+                    <a href="../auth/logout.php" class="sidebar-nav-item">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-content">
+                <div class="admin-header">
+                    <h1><i class="fas fa-box"></i> Manage Products</h1>
+                    <p>View and manage all pet care products</p>
                 </div>
-            <?php endif; ?>
 
-            <h2><i class="fas fa-list"></i> Product List</h2>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($product = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= $product['id'] ?></td>
-                        <td><?= htmlspecialchars($product['name']) ?></td>
-                        <td>$<?= number_format($product['price'], 2) ?></td>
-                        <td><?= htmlspecialchars($product['description']) ?></td>
-                        <td><?= htmlspecialchars($product['category']) ?></td>
-                        <td><img src="../assets/images/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="50" style="border-radius: 4px;"></td>
-                        <td>
-                            <div class="table-actions">
-                                <a href="edit_products.php?id=<?= $product['id'] ?>" class="btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <a href="manage_products.php?delete=<?= $product['id'] ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this product?')">
-                                    <i class="fas fa-trash"></i> Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                <div class="admin-main">
+                    <?php if ($error): ?>
+                        <div class="alert alert-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <?= htmlspecialchars($error) ?>
+                        </div>
+                    <?php elseif ($success): ?>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i>
+                            <?= htmlspecialchars($success) ?>
+                        </div>
+                    <?php endif; ?>
 
-        <div class="form-actions">
-            <a href="add_products.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add New Product
-            </a>
-            <a href="dashboard.php" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
+                    <div class="table-header">
+                        <a href="add_products.php" class="btn-add">
+                            <i class="fas fa-plus-circle"></i> Add New Product
+                        </a>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($product = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td class="table-id"><?= $product['id'] ?></td>
+                                        <td class="table-name"><?= htmlspecialchars($product['name']) ?></td>
+                                        <td>$<?= number_format($product['price'], 2) ?></td>
+                                        <td><?= htmlspecialchars($product['description']) ?></td>
+                                        <td><span class="table-category"><?= htmlspecialchars($product['category']) ?></span></td>
+                                        <td><img src="../assets/images/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="50" style="border-radius: 4px;"></td>
+                                        <td class="table-actions-cell">
+                                            <a href="edit_products.php?id=<?= $product['id'] ?>" class="table-action-btn edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="manage_products.php?delete=<?= $product['id'] ?>" class="table-action-btn delete" onclick="return confirm('Are you sure you want to delete this product?')">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
         </div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     </div>
-    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // Close sidebar when clicking on a nav item (mobile)
+        document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+    </script>
 
     <?php include '../includes/footer.php'; ?>
 </body>

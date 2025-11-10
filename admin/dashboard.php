@@ -49,73 +49,134 @@ $conn->close();
     <?php include '../includes/header.php'; ?>
 
     <div class="admin-container">
-        <div class="admin-header">
-            <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
-            <p>Welcome back, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</p>
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Admin Panel</h3>
+                    <p>Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="dashboard.php" class="sidebar-nav-item active">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="manage_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-box"></i> Manage Products
+                    </a>
+                    <a href="manage_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-concierge-bell"></i> Manage Services
+                    </a>
+                    <a href="add_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Products
+                    </a>
+                    <a href="add_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Services
+                    </a>
+                    <a href="../auth/logout.php" class="sidebar-nav-item">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-content">
+                <div class="admin-header">
+                    <h1><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h1>
+                    <p>Monitor your pet care business performance</p>
+                </div>
+
+                <div class="admin-main">
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h2>Total Products</h2>
+                                <p class="stat-number"><?= $total_products; ?></p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h2>Total Services</h2>
+                                <p class="stat-number"><?= $total_services; ?></p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h2>Active Session</h2>
+                                <p class="stat-number">Administrator</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h3><i class="fas fa-lightning-bolt"></i> Quick Actions</h3>
+                        <div class="action-buttons">
+                            <a href="add_products.php" class="action-btn primary">
+                                <i class="fas fa-plus"></i> Add New Product
+                            </a>
+                            <a href="add_services.php" class="action-btn secondary">
+                                <i class="fas fa-plus"></i> Add New Service
+                            </a>
+                            <a href="manage_products.php" class="action-btn">
+                                <i class="fas fa-edit"></i> Manage Products
+                            </a>
+                            <a href="manage_services.php" class="action-btn">
+                                <i class="fas fa-edit"></i> Manage Services
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
 
-        <div class="admin-nav">
-            <nav>
-                <ul>
-                    <li><a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a></li>
-                    <li><a href="manage_services.php"><i class="fas fa-concierge-bell"></i> Manage Services</a></li>
-                    <li><a href="add_products.php"><i class="fas fa-plus"></i> Add Products</a></li>
-                    <li><a href="add_services.php"><i class="fas fa-plus"></i> Add Services</a></li>
-                    <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                </ul>
-         </nav>
-        </div>
-
-        <div class="admin-main">
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h2>Total Products</h2>
-                        <p class="stat-number"><?= $total_products; ?></p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h2>Total Services</h2>
-                        <p class="stat-number"><?= $total_services; ?></p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h2>Active Session</h2>
-                        <p class="stat-number">Administrator</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="quick-actions">
-                <h3><i class="fas fa-lightning-bolt"></i> Quick Actions</h3>
-                <div class="action-buttons">
-                    <a href="add_products.php" class="action-btn primary">
-                        <i class="fas fa-plus"></i> Add New Product
-                    </a>
-                    <a href="add_services.php" class="action-btn secondary">
-                        <i class="fas fa-plus"></i> Add New Service
-                    </a>
-                    <a href="manage_products.php" class="action-btn">
-                        <i class="fas fa-edit"></i> Manage Products
-                    </a>
-                    <a href="manage_services.php" class="action-btn">
-                        <i class="fas fa-edit"></i> Manage Services
-                    </a>
-                </div>
-            </div>
-        </div>
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // Close sidebar when clicking on a nav item (mobile)
+        document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+    </script>
 
     <?php include '../includes/footer.php'; ?>
 </body>

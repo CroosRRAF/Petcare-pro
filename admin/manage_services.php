@@ -43,55 +43,133 @@ $result = $conn->query("SELECT * FROM services");
     <?php include '../includes/header.php'; ?>
 
     <div class="admin-container">
-        <div class="container">
-            <h1><i class="fas fa-concierge-bell"></i> Manage Services</h1>
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Admin Panel</h3>
+                    <p>Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="dashboard.php" class="sidebar-nav-item">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="manage_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-box"></i> Manage Products
+                    </a>
+                    <a href="manage_services.php" class="sidebar-nav-item active">
+                        <i class="fas fa-concierge-bell"></i> Manage Services
+                    </a>
+                    <a href="add_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Products
+                    </a>
+                    <a href="add_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Services
+                    </a>
+                    <a href="../auth/logout.php" class="sidebar-nav-item">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </aside>
 
-            <?php if ($error): ?>
-                <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
-            <?php elseif ($success): ?>
-                <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
+            <!-- Main Content -->
+            <main class="admin-content">
+                <div class="admin-header">
+                    <h1><i class="fas fa-concierge-bell"></i> Manage Services</h1>
+                    <p>View and manage all pet care services</p>
+                </div>
 
-            <a href="add_services.php" class="btn-add"><i class="fas fa-plus-circle"></i> Add New Service</a>
+                <div class="admin-main">
+                    <?php if ($error): ?>
+                        <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+                    <?php elseif ($success): ?>
+                        <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
+                    <?php endif; ?>
 
-            <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Image URL</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($service = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td class="table-id"><?= $service['id'] ?></td>
-                        <td class="table-name"><?= htmlspecialchars($service['name']) ?></td>
-                        <td><?= htmlspecialchars($service['description']) ?></td>
-                        <td><span class="table-category"><?= htmlspecialchars($service['category']) ?></span></td>
-                        <td><?= htmlspecialchars($service['image_url']) ?></td>
-                        <td class="table-actions-cell">
-                            <a href="edit_services.php?id=<?= $service['id'] ?>" class="table-action-btn edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <a href="manage_services.php?delete=<?= $service['id'] ?>" class="table-action-btn delete"
-                               onclick="return confirm('Are you sure you want to delete this service?');">
-                                <i class="fas fa-trash"></i> Delete
-                            </a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                    <div class="table-header">
+                        <a href="add_services.php" class="btn-add">
+                            <i class="fas fa-plus-circle"></i> Add New Service
+                        </a>
+                    </div>
 
-        <div class="form-nav">
-            <a href="dashboard.php"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Image URL</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($service = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td class="table-id"><?= $service['id'] ?></td>
+                                        <td class="table-name"><?= htmlspecialchars($service['name']) ?></td>
+                                        <td><?= htmlspecialchars($service['description']) ?></td>
+                                        <td><span class="table-category"><?= htmlspecialchars($service['category']) ?></span></td>
+                                        <td><?= htmlspecialchars($service['image_url']) ?></td>
+                                        <td class="table-actions-cell">
+                                            <a href="edit_services.php?id=<?= $service['id'] ?>" class="table-action-btn edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="manage_services.php?delete=<?= $service['id'] ?>" class="table-action-btn delete"
+                                               onclick="return confirm('Are you sure you want to delete this service?');">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
         </div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     </div>
-</div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // Close sidebar when clicking on a nav item (mobile)
+        document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+    </script>
 
 <?php include '../includes/footer.php'; ?>
 </body>

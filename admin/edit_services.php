@@ -65,51 +65,123 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include '../includes/header.php'; ?>
 
     <div class="admin-container">
-        <div class="container">
-            <h1><i class="fas fa-edit"></i> Edit Service</h1>
-
-            <?php if ($error): ?>
-                <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
-            <?php elseif ($success): ?>
-                <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
-
-            <form action="edit_services.php?id=<?= $service['id'] ?>" method="POST" class="admin-form">
-                <div class="form-group">
-                    <label for="name"><i class="fas fa-concierge-bell"></i> Service Name:</label>
-                    <input type="text" id="name" name="name" value="<?= htmlspecialchars($service['name']) ?>" required>
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Admin Panel</h3>
+                    <p>Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="description"><i class="fas fa-align-left"></i> Description:</label>
-                    <textarea id="description" name="description" required><?= htmlspecialchars($service['description']) ?></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="category"><i class="fas fa-list"></i> Category:</label>
-                    <input type="text" id="category" name="category" value="<?= htmlspecialchars($service['category']) ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="image_url"><i class="fas fa-image"></i> Image URL:</label>
-                    <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($service['image_url']) ?>" required>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Update Service
-                    </button>
-                    <a href="manage_services.php" class="btn btn-secondary">
-                        <i class="fas fa-times"></i> Cancel
+                <nav class="sidebar-nav">
+                    <a href="dashboard.php" class="sidebar-nav-item">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
-                </div>
-            </form>
+                    <a href="manage_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-box"></i> Manage Products
+                    </a>
+                    <a href="manage_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-concierge-bell"></i> Manage Services
+                    </a>
+                    <a href="add_products.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Products
+                    </a>
+                    <a href="add_services.php" class="sidebar-nav-item">
+                        <i class="fas fa-plus"></i> Add Services
+                    </a>
+                    <a href="../auth/logout.php" class="sidebar-nav-item">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </aside>
 
-            <div class="form-nav">
-                <a href="manage_services.php"><i class="fas fa-arrow-left"></i> Back to Manage Services</a>
-            </div>
+            <!-- Main Content -->
+            <main class="admin-content">
+                <div class="admin-header">
+                    <h1><i class="fas fa-edit"></i> Edit Service</h1>
+                    <p>Update service information</p>
+                </div>
+
+                <div class="admin-main">
+                    <?php if ($error): ?>
+                        <div class="error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+                    <?php elseif ($success): ?>
+                        <div class="success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div>
+                    <?php endif; ?>
+
+                    <form action="edit_services.php?id=<?= $service['id'] ?>" method="POST" class="admin-form">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-concierge-bell"></i> Service Name:</label>
+                            <input type="text" id="name" name="name" value="<?= htmlspecialchars($service['name']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description"><i class="fas fa-align-left"></i> Description:</label>
+                            <textarea id="description" name="description" required><?= htmlspecialchars($service['description']) ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category"><i class="fas fa-list"></i> Category:</label>
+                            <input type="text" id="category" name="category" value="<?= htmlspecialchars($service['category']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image_url"><i class="fas fa-image"></i> Image URL:</label>
+                            <input type="text" id="image_url" name="image_url" value="<?= htmlspecialchars($service['image_url']) ?>" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Service
+                            </button>
+                            <a href="manage_services.php" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // Close sidebar when clicking on a nav item (mobile)
+        document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+    </script>
 
     <?php include '../includes/footer.php'; ?>
 </body>
