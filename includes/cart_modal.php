@@ -58,7 +58,7 @@
 
 .modal-header {
     padding: 20px 24px;
-    background: linear-gradient(135deg, #3c91e6, #2a6ebb);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     color: white;
     display: flex;
     justify-content: space-between;
@@ -111,7 +111,7 @@
     width: 40px;
     height: 40px;
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #3c91e6;
+    border-top: 4px solid var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 16px;
@@ -378,11 +378,11 @@ if (!document.getElementById("cart-notification-styles")) {
         }
 
         .notification-popup.notification-info {
-            border-left: 4px solid #3c91e6;
+            border-left: 4px solid var(--primary-color);
         }
 
         .notification-popup.notification-info i {
-            color: #3c91e6;
+            color: var(--primary-color);
         }
 
         .notification-popup span {

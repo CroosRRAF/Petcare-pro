@@ -647,6 +647,20 @@ body {
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+  .top-nav {
+    padding: 15px 25px;
+  }
+
+  .brand {
+    font-size: 1.8rem;
+  }
+
+  .search-form input[type="search"] {
+    width: 220px;
+  }
+}
+
 @media (max-width: 992px) {
   .top-nav {
     padding: 15px 20px;
@@ -657,22 +671,75 @@ body {
   }
 
   .icons {
-    gap: 15px;
+    gap: 12px;
   }
 
   .menu-button {
     display: block;
   }
-}
 
-@media (max-width: 768px) {
   .search-form {
-    right: 20px;
-    top: 65px;
+    right: 15px;
   }
 
   .search-form input[type="search"] {
-    width: 180px;
+    width: 200px;
+  }
+
+  .notification-dropdown {
+    width: 320px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav {
+    padding: 12px 15px;
+    position: relative;
+  }
+
+  .brand {
+    font-size: 1.6rem;
+  }
+
+  .icons {
+    gap: 10px;
+  }
+
+  .icons i {
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+
+  .icons i:hover {
+    background-color: rgba(60, 145, 230, 0.1);
+  }
+
+  .search-form {
+    right: 10px;
+    top: 60px;
+  }
+
+  .search-form input[type="search"] {
+    width: 160px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .search-form label {
+    padding: 8px 12px;
+  }
+
+  .notification-dropdown {
+    width: 280px;
+    right: 10px;
+    max-height: 400px;
+  }
+
+  .notification-list {
+    max-height: 300px;
   }
 
   .left-sidebar {
@@ -682,14 +749,198 @@ body {
   .toggle-btn.open {
     left: 280px;
   }
+
+  .mobile-sidebar {
+    width: 260px;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  .top-nav {
+    padding: 10px 12px;
+  }
+
   .brand {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .icons {
+    gap: 8px;
   }
 
   .icons i {
     font-size: 1.1rem;
+    padding: 6px;
+  }
+
+  .menu-button {
+    font-size: 1.3rem;
+    padding: 6px;
+  }
+
+  .search-form {
+    right: 8px;
+    top: 55px;
+  }
+
+  .search-form input[type="search"] {
+    width: 140px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .search-form label {
+    padding: 6px 10px;
+  }
+
+  .notification-dropdown {
+    width: 250px;
+    right: 8px;
+    top: 55px;
+  }
+
+  .notification-header {
+    padding: 15px;
+  }
+
+  .notification-item {
+    padding: 12px 15px;
+    gap: 12px;
+  }
+
+  .notification-icon-wrapper {
+    width: 35px;
+    height: 35px;
+  }
+
+  .notification-text {
+    font-size: 0.85rem;
+  }
+
+  .notification-time {
+    font-size: 0.7rem;
+  }
+
+  .left-sidebar {
+    width: 240px;
+  }
+
+  .toggle-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    top: 75px;
+    left: 15px;
+  }
+
+  .toggle-btn.open {
+    left: 255px;
+  }
+
+  .mobile-sidebar {
+    width: 240px;
+    padding: 70px 15px 20px;
+  }
+
+  .mobile-sidebar ul li a {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand {
+    font-size: 1.3rem;
+  }
+
+  .icons i {
+    font-size: 1rem;
+    padding: 5px;
+  }
+
+  .menu-button {
+    font-size: 1.2rem;
+    padding: 5px;
+  }
+
+  .search-form {
+    right: 5px;
+    top: 52px;
+  }
+
+  .search-form input[type="search"] {
+    width: 120px;
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+
+  .search-form label {
+    padding: 5px 8px;
+  }
+
+  .notification-dropdown {
+    width: 220px;
+    right: 5px;
+    top: 52px;
+  }
+
+  .notification-header h3 {
+    font-size: 1rem;
+  }
+
+  .notification-item {
+    padding: 10px 12px;
+  }
+
+  .notification-icon-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+
+  .notification-icon-wrapper i {
+    font-size: 0.8rem;
+  }
+
+  .notification-text {
+    font-size: 0.8rem;
+  }
+
+  .notification-time {
+    font-size: 0.65rem;
+  }
+
+  .left-sidebar {
+    width: 220px;
+  }
+
+  .toggle-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    top: 70px;
+    left: 10px;
+  }
+
+  .toggle-btn.open {
+    left: 230px;
+  }
+
+  .mobile-sidebar {
+    width: 220px;
+    padding: 65px 12px 20px;
+  }
+
+  .mobile-sidebar ul li {
+    margin-bottom: 12px;
+  }
+
+  .mobile-sidebar ul li a {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .mobile-sidebar ul li a i {
+    margin-right: 8px;
+    width: 18px;
   }
 }

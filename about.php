@@ -22,13 +22,13 @@
 
         .about-header h1 {
             font-size: 2.5rem;
-            color: #3c91e6;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
         .about-header p {
             font-size: 1.2rem;
-            color: #666;
+            color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
@@ -41,14 +41,14 @@
         }
 
         .about-text h2 {
-            color: #3c91e6;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
         .about-text p {
             line-height: 1.6;
             margin-bottom: 20px;
-            color: #555;
+            color: var(--text-secondary);
         }
 
         .about-image {
@@ -78,17 +78,17 @@
 
         .feature-card i {
             font-size: 3rem;
-            color: #3c91e6;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
         .feature-card h3 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 15px;
         }
 
         .feature-card p {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.5;
         }
 
@@ -127,7 +127,7 @@
 
             <div class="about-image">
                 <img src="assets/images/placeholder-about.jpg" alt="Happy pets at Petcare Pro" onerror="this.style.display='none'">
-                <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #3c91e6, #2a6ebb); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                <div style="width: 100%; height: 300px; background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
                     <div style="text-align: center;">
                         <i class="fas fa-paw" style="font-size: 4rem; margin-bottom: 20px;"></i>
                         <h3>Quality Pet Care</h3>

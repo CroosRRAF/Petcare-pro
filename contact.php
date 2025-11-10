@@ -22,13 +22,13 @@
 
         .contact-header h1 {
             font-size: 2.5rem;
-            color: #3c91e6;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
         .contact-header p {
             font-size: 1.2rem;
-            color: #666;
+            color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
@@ -42,7 +42,7 @@
 
         .contact-form-section h2,
         .contact-info-section h2 {
-            color: #3c91e6;
+            color: var(--primary-color);
             margin-bottom: 30px;
         }
 
@@ -77,7 +77,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #3c91e6;
+            border-color: var(--primary-color);
         }
 
         .form-group textarea {
@@ -86,7 +86,7 @@
         }
 
         .btn-submit {
-            background: #3c91e6;
+            background: var(--primary-color);
             color: white;
             padding: 12px 30px;
             border: none;
@@ -97,7 +97,7 @@
         }
 
         .btn-submit:hover {
-            background: #2a6ebb;
+            background: var(--primary-hover);
         }
 
         .contact-info {
@@ -114,7 +114,7 @@
         }
 
         .contact-item i {
-            color: #3c91e6;
+            color: var(--primary-color);
             font-size: 1.5rem;
             margin-right: 15px;
             margin-top: 5px;

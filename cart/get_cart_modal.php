@@ -238,7 +238,7 @@ foreach ($cart_items as $item) {
 }
 
 .badge-primary {
-    background: #3c91e6;
+    background: var(--primary-color);
     color: white;
 }
 
@@ -253,7 +253,7 @@ foreach ($cart_items as $item) {
 
 .cart-item-price {
     font-weight: 600;
-    color: #3c91e6;
+    color: var(--primary-color);
     margin-bottom: 4px;
 }
 
@@ -291,7 +291,7 @@ foreach ($cart_items as $item) {
 }
 
 .total-price {
-    color: #3c91e6;
+    color: var(--primary-color);
     font-size: 18px;
 }
 
@@ -313,7 +313,7 @@ foreach ($cart_items as $item) {
 }
 
 .contact-pricing {
-    color: #3c91e6;
+    color: var(--primary-color);
     font-style: italic;
     font-size: 12px;
 }

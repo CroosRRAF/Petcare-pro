@@ -534,18 +534,467 @@ html {
   transition: transform 0.6s;
 }
 
-/* Responsive Design */
+/* Global Responsive Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 @media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* Responsive Grid Utilities */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive Flex Utilities */
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .flex-column-mobile {
+    flex-direction: column;
+  }
+
+  .flex-center-mobile {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Responsive Text Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .text-center-mobile {
+    text-align: center;
+  }
+
+  .text-left-mobile {
+    text-align: left;
+  }
+}
+
+/* Responsive Spacing Utilities */
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+.mb-5 {
+  margin-bottom: 2.5rem;
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mt-4 {
+  margin-top: 2rem;
+}
+.mt-5 {
+  margin-top: 2.5rem;
+}
+
+.p-1 {
+  padding: 0.5rem;
+}
+.p-2 {
+  padding: 1rem;
+}
+.p-3 {
+  padding: 1.5rem;
+}
+.p-4 {
+  padding: 2rem;
+}
+.p-5 {
+  padding: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .mb-1-mobile {
+    margin-bottom: 0.5rem;
+  }
+  .mb-2-mobile {
+    margin-bottom: 1rem;
+  }
+  .mb-3-mobile {
+    margin-bottom: 1.5rem;
+  }
+  .mb-4-mobile {
+    margin-bottom: 2rem;
+  }
+
+  .mt-1-mobile {
+    margin-top: 0.5rem;
+  }
+  .mt-2-mobile {
+    margin-top: 1rem;
+  }
+  .mt-3-mobile {
+    margin-top: 1.5rem;
+  }
+  .mt-4-mobile {
+    margin-top: 2rem;
+  }
+
+  .p-1-mobile {
+    padding: 0.5rem;
+  }
+  .p-2-mobile {
+    padding: 1rem;
+  }
+  .p-3-mobile {
+    padding: 1.5rem;
+  }
+  .p-4-mobile {
+    padding: 2rem;
+  }
+}
+
+/* Responsive Display Utilities */
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+@media (max-width: 768px) {
+  .d-none-mobile {
+    display: none !important;
+  }
+
+  .d-block-mobile {
+    display: block !important;
+  }
+
+  .d-flex-mobile {
+    display: flex !important;
+  }
+
+  .d-grid-mobile {
+    display: grid !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .d-none-desktop {
+    display: none !important;
+  }
+
+  .d-block-desktop {
+    display: block !important;
+  }
+
+  .d-flex-desktop {
+    display: flex !important;
+  }
+
+  .d-grid-desktop {
+    display: grid !important;
+  }
+}
+
+/* Touch-friendly button sizes */
+.btn-touch {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  button,
+  .btn,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+  }
+}
+
+/* Responsive Images */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive Tables */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+}
+
+/* Improved Focus States for Mobile */
+@media (max-width: 768px) {
+  button:focus,
+  .btn:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Better Mobile Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  h4 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+  h5 {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  h6 {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 0.95rem;
+  }
+  h6 {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 1200px) {
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.3rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .services-grid,
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+  }
+
+  .hero-buttons {
+    gap: 15px;
+  }
+
+  .btn {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .feature-card {
+    padding: 25px;
+  }
+
+  .section-title h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 50px 15px;
+    text-align: center;
+  }
+
   .hero-content h1 {
     font-size: 2.5rem;
+    margin-bottom: 20px;
   }
 
   .hero-content p {
     font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+  }
+
+  .section {
+    padding: 50px 15px;
   }
 
   .section-title h2 {
     font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .section-title p {
+    font-size: 1rem;
   }
 
   .features-grid,
@@ -553,25 +1002,267 @@ html {
   .products-grid,
   .testimonials-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .feature-card {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .service-card,
+  .product-card {
+    max-width: 100%;
+  }
+
+  .cta-content {
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+  }
+
+  .testimonial-card {
+    padding: 25px;
+  }
+
+  .testimonial-quote {
+    font-size: 2.5rem;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    padding: 40px 12px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    align-items: center;
+    gap: 15px;
   }
 
   .btn {
-    width: 100%;
-    max-width: 300px;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 40px 12px;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-title p {
+    font-size: 0.95rem;
+  }
+
+  .features-grid,
+  .services-grid,
+  .products-grid,
+  .testimonials-grid {
+    gap: 25px;
+  }
+
+  .feature-card {
+    padding: 25px 15px;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+
+  .service-card,
+  .product-card {
+    margin: 0 auto;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-description {
+    font-size: 0.95rem;
+  }
+
+  .cta-content h2 {
+    font-size: 1.9rem;
+  }
+
+  .cta-content p {
+    font-size: 1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+
+  .testimonial-quote {
+    font-size: 2rem;
+    top: 15px;
+    left: 15px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .author-image {
+    width: 45px;
+    height: 45px;
+  }
+
+  .author-info h4 {
+    font-size: 1rem;
+  }
+
+  .author-info p {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
+  .hero {
+    padding: 35px 10px;
+  }
+
   .hero-content h1 {
     font-size: 2rem;
   }
 
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+
+  .section {
+    padding: 35px 10px;
+  }
+
+  .section-title h2 {
+    font-size: 1.6rem;
+  }
+
+  .section-title p {
+    font-size: 0.9rem;
+  }
+
+  .feature-card {
+    padding: 20px 12px;
+  }
+
+  .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+  }
+
+  .card-content {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+
+  .card-actions {
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   .cta-content h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
+  }
+
+  .cta-content p {
+    font-size: 0.95rem;
+  }
+
+  .testimonial-card {
+    padding: 18px;
+  }
+
+  .testimonial-quote {
+    font-size: 1.8rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .author-info h4 {
+    font-size: 0.95rem;
+  }
+
+  .author-info p {
+    font-size: 0.8rem;
   }
 }

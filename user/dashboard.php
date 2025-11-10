@@ -298,7 +298,7 @@ $notifications->data_seek(0); // Reset pointer
                     <ul>
                         <?php while ($notif = $notifications->fetch_assoc()): ?>
                             <li>
-                                <span><i class="fas fa-info-circle" style="color: #3c91e6; margin-right: 8px;"></i><?php echo htmlspecialchars($notif['message']); ?></span>
+                                <span><i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 8px;"></i><?php echo htmlspecialchars($notif['message']); ?></span>
                                 <small><?php echo date('M d, H:i', strtotime($notif['created_at'])); ?></small>
                             </li>
                         <?php endwhile; ?>
@@ -315,7 +315,7 @@ $notifications->data_seek(0); // Reset pointer
             <div class="section">
                 <h2><i class="fas fa-rocket"></i> Quick Actions</h2>
                 <div class="quick-actions">
-                    <a href="../products/index.php" class="quick-action-btn">
+                    <a href="../products/foods.php" class="quick-action-btn">
                         <i class="fas fa-shopping-bag"></i>
                         <span>Shop Products</span>
                     </a>
@@ -331,7 +331,7 @@ $notifications->data_seek(0); // Reset pointer
                         <i class="fas fa-box"></i>
                         <span>My Orders</span>
                     </a>
-                    <a href="../pages/contact.php" class="quick-action-btn">
+                    <a href="../contact.php" class="quick-action-btn">
                         <i class="fas fa-envelope"></i>
                         <span>Contact Us</span>
                     </a>
