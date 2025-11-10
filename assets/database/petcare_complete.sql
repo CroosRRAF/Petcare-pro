@@ -1,7 +1,22 @@
-CREATE DATABASE IF NOT EXISTS petcare;
+-- ===========================================
+-- Petcare Pro Database - Complete Setup
+-- ===========================================
+-- This file contains the complete database schema and sample data
+-- for the Petcare Pro e-commerce platform.
+--
+-- Import this file once to set up the entire database.
+--
+-- Created: November 10, 2025
+-- Version: 1.0.0
+-- ===========================================
 
+-- Create database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS petcare;
 USE petcare;
 
+-- ===========================================
+-- USERS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL,
@@ -11,6 +26,9 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ===========================================
+-- PRODUCTS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS products (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -21,6 +39,9 @@ CREATE TABLE IF NOT EXISTS products (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ===========================================
+-- SERVICES TABLE
+-- ===========================================
 CREATE TABLE services (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -30,6 +51,9 @@ CREATE TABLE services (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ===========================================
+-- CART TABLE (Supports both products and services)
+-- ===========================================
 CREATE TABLE IF NOT EXISTS cart (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -45,6 +69,9 @@ CREATE TABLE IF NOT EXISTS cart (
      OR (item_type = 'service' AND service_id IS NOT NULL AND product_id IS NULL))
 );
 
+-- ===========================================
+-- ORDERS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -54,6 +81,9 @@ CREATE TABLE IF NOT EXISTS orders (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- ===========================================
+-- ORDER ITEMS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS order_items (
   id INT AUTO_INCREMENT PRIMARY KEY,
   order_id INT NOT NULL,
@@ -64,6 +94,9 @@ CREATE TABLE IF NOT EXISTS order_items (
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
+-- ===========================================
+-- PAYMENTS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS payments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   order_id INT NOT NULL,
@@ -74,6 +107,9 @@ CREATE TABLE IF NOT EXISTS payments (
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
+-- ===========================================
+-- NOTIFICATIONS TABLE
+-- ===========================================
 CREATE TABLE IF NOT EXISTS notifications (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -83,12 +119,18 @@ CREATE TABLE IF NOT EXISTS notifications (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-INSERT INTO  users (id, username, email, password, role) VALUES
+-- ===========================================
+-- SAMPLE DATA INSERTION
+-- ===========================================
+
+-- Insert default users (admin and regular user)
+INSERT INTO users (id, username, email, password, role) VALUES
 -- WARNING: The following seed users use plain-text passwords for demo purposes.
 -- In production you should store hashed passwords (use PHP's password_hash) and import hashed values instead.
 (1, 'admin', 'admin@pet.com', 'admin123', 'admin'),
 (2, 'user', 'user@pet.com', 'user1234', 'user');
 
+-- Insert sample products (Food category)
 INSERT INTO products (name, price, description, category, image_url) VALUES
 ('Pet Veggie Snack', 1050.00, 'Delicious veggie snack for pets', 'Food', "foods/1.jpg"),
 ('Cat Meals', 900.00, 'Nutritious meals for cats', 'Food', "foods/2.jpg"),
@@ -102,6 +144,7 @@ INSERT INTO products (name, price, description, category, image_url) VALUES
 ('FruitBlend for Birds', 950.00, 'Fruits blend for birds', 'Food', "foods/10.jpg"),
 ('Birds Nutrition', 950.00, 'Balanced nutrition for birds', 'Food', "foods/11.jpg");
 
+-- Insert sample products (Tools category)
 INSERT INTO products (name, price, description, category, image_url) VALUES
 ('Pets Hair Trimmer', 900.00, 'Efficient trimmer for pet grooming', 'Tools', "tools/1.jpeg"),
 ('Pets Feet Shaper', 1050.00, 'Special tool to shape pet feet', 'Tools', "tools/2.jpeg"),
@@ -116,6 +159,7 @@ INSERT INTO products (name, price, description, category, image_url) VALUES
 ('Safety Belt', 950.00, 'Safety belt for pet travel', 'Tools', "tools/11.jpeg"),
 ('Pets Basket', 1500.00, 'Comfortable basket for pet travel', 'Tools', "tools/12.jpg");
 
+-- Insert sample services (Grooming category)
 INSERT INTO services (name, description, category, image_url) VALUES
 ('Nail Trimming', 'Expert nail trimming for your pets.', 'Grooming', 'grooming/1.jpeg'),
 ('Breed Hair Cutting', 'Stylish breed-specific haircuts.', 'Grooming', 'grooming/2.jpeg'),
@@ -124,6 +168,7 @@ INSERT INTO services (name, description, category, image_url) VALUES
 ('Ear Cleaning', 'Effective ear cleaning service.', 'Grooming', 'grooming/5.jpeg'),
 ('Spa Treatments', 'Pampering spa sessions for pets.', 'Grooming', 'grooming/6.jpeg');
 
+-- Insert sample services (Boarding category)
 INSERT INTO services (name, description, category, image_url) VALUES
 ('Pet Sitting', 'Reliable care while you are away.', 'Boarding', 'boarding/1.jpeg'),
 ('Special Trainings', 'Behavioral and agility training.', 'Boarding', 'boarding/2.jpg'),
@@ -132,8 +177,34 @@ INSERT INTO services (name, description, category, image_url) VALUES
 ('Pet Parties', 'Fun social events for pets.', 'Boarding', 'boarding/5.jpg'),
 ('Breeding Programs', 'Professional breeding management.', 'Boarding', 'boarding/6.jpg');
 
+-- Insert sample services (Health category)
 INSERT INTO services (name, description, category, image_url) VALUES
 ('Monthly Checkups', 'Regular health assessments.', 'Health', 'health/1.jpeg'),
 ('Vaccinations', 'Essential vaccinations for pets.', 'Health', 'health/2.jpeg'),
 ('Nutrition Consultants', 'Dietary advice for better health.', 'Health', 'health/3.jpg'),
 ('Surgeries', 'Professional surgical care.', 'Health', 'health/5.jpeg');
+
+-- ===========================================
+-- SETUP COMPLETE MESSAGE
+-- ===========================================
+SELECT
+    'Petcare Pro Database Setup Complete!' as status,
+    'Database created with all tables and sample data' as message,
+    COUNT(*) as total_products
+FROM products
+UNION ALL
+SELECT
+    'Services loaded',
+    CONCAT(COUNT(*), ' services available'),
+    COUNT(*)
+FROM services
+UNION ALL
+SELECT
+    'Users created',
+    CONCAT(COUNT(*), ' default users (admin/user)'),
+    COUNT(*)
+FROM users;
+
+-- ===========================================
+-- END OF DATABASE SETUP
+-- ===========================================
